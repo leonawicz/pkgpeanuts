@@ -13,7 +13,9 @@ BugReports: https://github.com/leonawicz/pkgpeanuts/issues
 Imports: 
     pkgdown,
     usethis,
-    git2r
+    git2r,
+    ggplot2,
+    hexSticker
 Suggests: 
     testthat,
     covr,
