@@ -323,6 +323,6 @@ pour <- function(account, name = NULL, description = NULL,
       sink()
     }
   }
-  message("Package sealed.")
+  message("Package peanuts added for protection.")
   invisible()
 }
