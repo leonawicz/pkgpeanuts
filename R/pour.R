@@ -269,10 +269,12 @@ pour <- function(account, name = NULL, description = NULL,
   }
   if(revdep) usethis::use_revdep()
   if(lintr == "test"){
-    use_lintr(lint_as_test = TRUE)
+    try(use_lintr(lint_as_test = TRUE))
   } else if(lintr == "user"){
     use_lintr()
   }
+  message("Building favicons and initializing pkgdown...")
+  pkgdown::build_favicon()
   pkgdown::init_site()
   pdfiles <- list.files(file.path(system.file(package = "pkgpeanuts"), "resources/pkgdown"),
                         full.names = TRUE)
@@ -288,6 +290,8 @@ pour <- function(account, name = NULL, description = NULL,
   }
   x <- gsub("_ACCOUNT_", r$account, x)
   x <- gsub("_PACKAGE_", r$repo, x)
+  if(is.null(name)) name <- options()$usethis.full_name
+  x <- gsub("_GIVEN_FAMILY_", name, x)
   x <- gsub("_HOST_", host, x)
   x <- gsub("_HOSTURL_", switch(host, github = "github.com", bitbucket = "bitbucket.org"), x)
   sink(file)
@@ -300,16 +304,18 @@ pour <- function(account, name = NULL, description = NULL,
     if(codecov) usethis::use_coverage()
     if(readme){
       badges <- paste0(
-        "[![Travis-CI Build Status](https://travis-ci.org/", r$account, # nolint start
+        "\n[![Travis-CI Build Status](https://travis-ci.org/", r$account, # nolint start
         "/", r$repo, ".svg?branch=master)](https://travis-ci.org/",
-        r$account, "/", r$repo, ")\n\n  ",
+        r$account, "/", r$repo, ")\n",
         "[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/", r$account,
         "/", r$repo, "?branch=master&svg=true)](https://ci.appveyor.com/project/", r$account,
-        "/", r$repo, ")\n\n  ",
+        "/", r$repo, ")\n",
         "[![Coverage Status](https://img.shields.io/codecov/c/github/", r$account, "/", r$repo,
-        "/master.svg)](https://codecov.io/github/", r$account, "/", r$repo, "?branch=master)\n\n") # nolint end
+        "/master.svg)](https://codecov.io/github/", r$account, "/", r$repo, "?branch=master)") # nolint end
       x <- readLines("README.Rmd")
       idx <- grep(paste("^#", package), x)
+      if(hex & file.exists("man/figures/logo.png") & x[idx] == paste("#", package))
+        x[idx] <- paste(x[idx], '<a href="man/figures/logo.png" _target="blank"><img src="man/figures/logo.png" style="margin-left:10px;margin-bottom:5px;" width="120" align="right"></a>') #nolint
       x <- paste0(c(x[1:idx], badges, x[(idx + 1):length(x)]), collapse = "\n")
       sink("README.Rmd")
       cat(x, "\n", sep = "")
@@ -317,9 +323,9 @@ pour <- function(account, name = NULL, description = NULL,
     }
     if(travis & codecov){
       x <- readLines(".travis.yml")
-      x <- paste0(c(x, "after_success:\n  - Rscript -e 'covr::codecov()'\n"), collapse = "\n")
+      x <- paste0(c(x, "\nafter_success:\n  - Rscript -e 'covr::codecov()'\n"), collapse = "\n")
       sink(".travis.yml")
-      cat(x, "\n", sep = "")
+      cat(x)
       sink()
     }
   }
