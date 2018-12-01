@@ -105,14 +105,14 @@
 <p>Note that if you provide <code>lintr = "test"</code> and receive a warning like the following:</p>
 <pre><code>In file.symlink("inst/.lintr", ".lintr") :
   cannot symlink 'inst\.lintr' to '.lintr', reason 'A required privilege is not held by the client'</code></pre>
-<p>this means that <code>pour</code> was unable to create a symlink due to restrcited permissions. You need to run RStudio as administrator to avoid this warning. The symbolic link is necessary for the current approach to combining <code>lintr</code> with <code>testthat</code> unit testing and not failing a Travis-CI build. I think there is now another way to do this, but I have not looked into it yet. Stay tuned.</p>
+<p>this means that <code>pour</code> was unable to create a symlink due to restricted permissions. You need to run RStudio as administrator to avoid this warning. The symbolic link is necessary for the current approach to combining <code>lintr</code> with <code>testthat</code> unit testing and not failing a Travis-CI build. I think there is now another way to do this, but I have not looked into it yet. Stay tuned.</p>
 </div>
 <div id="shiny-apps-in-a-package" class="section level2">
 <h2 class="hasAnchor">
 <a href="#shiny-apps-in-a-package" class="anchor"></a>Shiny apps in a package</h2>
 <p>Add an existing, external Shiny app to a source package with <code>use_app</code>. This will copy the app into the <code>inst</code> directory. For example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/use_app.html">use_app</a></span>(<span class="st">"../app"</span>)</code></pre></div>
-<p>By default this will also add a template <code>DESCRIPTION</code> file and template <code>Readme.md</code> file. These files can also be added separately using <code>use_app_description</code> and <code>use_app_readme</code>. This gives more control over the content output by <code>use_app_description</code>. These files are useful for SHiny showcase mode.</p>
+<p>By default this will also add a template <code>DESCRIPTION</code> file and template <code>Readme.md</code> file. These files can also be added separately using <code>use_app_description</code> and <code>use_app_readme</code>. This gives more control over the content output by <code>use_app_description</code>. These files are useful for Shiny showcase mode.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/use_app_description.html">use_app_description</a></span>(<span class="st">"path/to/app"</span>, <span class="dt">title =</span> <span class="st">"My app"</span>, <span class="dt">author =</span> <span class="st">"Me"</span>, <span class="dt">url =</span> <span class="st">"example.com"</span>, 
     <span class="dt">tags =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"data analysis"</span>, <span class="st">"graphing"</span>))
 <span class="kw"><a href="../reference/use_app_readme.html">use_app_readme</a></span>()</code></pre></div>

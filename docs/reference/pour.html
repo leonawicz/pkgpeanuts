@@ -198,7 +198,7 @@ Consider setting default fields in <code>options</code>, or even <code>.Rprofile
     </tr>
     <tr>
       <th>hex</th>
-      <td><p>logical, palce default hex sticker package logo at <code>man/figures/logo.png</code> and a template script for customization at <code>data-raw/hex.R</code>.</p></td>
+      <td><p>logical, place default hex sticker package logo at <code>man/figures/logo.png</code> (see details) and a template script for customization at <code>data-raw/hex.R</code>.</p></td>
     </tr>
     <tr>
       <th>news</th>
@@ -232,6 +232,9 @@ Consider setting default fields in <code>options</code>, or even <code>.Rprofile
 <p>If using <code>lintr</code> with the new package,  set <code>lintr = "user"</code> for interactive-only use of the <code>lintr</code> package.
 Set to <code>"test"</code> for setting up linting as a component of unit testing. The default is <code>lintr = "none"</code>.
 See <code><a href='use_lintr.html'>use_lintr</a></code> for important details regarding unit testing with <code>lintr</code> in an R package.</p>
+<p>If <code>hex = TRUE</code>, the default <code>logo.png</code> will not be created if the <code>magick</code> package and ImageMagick are not installed.
+Instead, a message is printed notifying of this requirement. Being able to generate a default logo (that will surely be replaced later) is a very minor and unimportant feature.
+Therefore, <code>pkgpeanuts</code> does not have package dependencies or system requirements in this regard. This is optional.</p>
 <p><code>pkgdown</code> for R package website building is also initialized, using a <code>pkgdown</code> directory in the package root
 directory containing template <code>_pkgdown.yml</code> and <code>extra.css</code> files.
 The <code>docs</code> directory is used for website files and should be specified likewise in the remote repository settings.
