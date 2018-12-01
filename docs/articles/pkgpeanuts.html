@@ -102,6 +102,10 @@
 <p>After creating a new package in RStudio, make sure the new, empty repository exists on GitHub (or BitBucket) as well. Make an initial commit, e.g. commit the <code>.Rproj</code> file, so that you can add and push to the remote repository. If this has not been done, <code>pkgpeanuts</code> will fail. Once this minimal setup is complete, run something like the following from the package root directory:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pkgpeanuts<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/pkgpeanuts/topics/pour">pour</a></span>(<span class="st">"github_username"</span>)</code></pre></div>
 <p><code>pkgpeanuts</code> has many arguments. See the help documentation for details. And again, this is not intended for existing packages.</p>
+<p>Note that if you provide <code>lintr = "test"</code> and receive a warning like the following:</p>
+<pre><code>In file.symlink("inst/.lintr", ".lintr") :
+  cannot symlink 'inst\.lintr' to '.lintr', reason 'A required privilege is not held by the client'</code></pre>
+<p>this means that <code>pour</code> was unable to create a symlink due to restrcited permissions. You need to run RStudio as administrator to avoid this warning. The symbolic link is necessary for the current approach to combining <code>lintr</code> with <code>testthat</code> unit testing and not failing a Travis-CI build. I think there is now another way to do this, but I have not looked into it yet. Stay tuned.</p>
 </div>
 <div id="shiny-apps-in-a-package" class="section level2">
 <h2 class="hasAnchor">
