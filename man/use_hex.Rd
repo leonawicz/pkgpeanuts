@@ -21,6 +21,10 @@ Add \code{hex.R} to package \code{data-raw} directory. Create a default logo.
 This script provides a template for package hex sticker icons, a large icon in \code{data-raw} and a small icon in \code{inst}.
 A default logo is generated and placed at \code{man/figures/logo.png}. However, it will require user customization after it is generated.
 Adapt the provided script and rerun to make a new logo.
+
+The default \code{logo.png} will not be created if the \code{magick} package and ImageMagick are not installed.
+Instead, a message is printed notifying of this requirement. Being able to generate a default logo (that will surely be replaced later) is a very minor and unimportant feature.
+Therefore, \code{pkgpeanuts} does not have package dependencies or system requirements in this regard. This is optional.
 }
 \examples{
 \dontrun{use_hex(account = "username", host = "github")}

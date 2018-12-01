@@ -37,7 +37,7 @@ Consider setting default fields in \code{options}, or even \code{.Rprofile} if y
 
 \item{data_raw}{logical, use \code{data-raw} directory for raw repository data and package dataset preparation.}
 
-\item{hex}{logical, palce default hex sticker package logo at \code{man/figures/logo.png} and a template script for customization at \code{data-raw/hex.R}.}
+\item{hex}{logical, place default hex sticker package logo at \code{man/figures/logo.png} (see details) and a template script for customization at \code{data-raw/hex.R}.}
 
 \item{news}{logical, use \code{NEWS.md}.}
 
@@ -64,6 +64,10 @@ Run this function from the new package's root directory.
 If using \code{lintr} with the new package,  set \code{lintr = "user"} for interactive-only use of the \code{lintr} package.
 Set to \code{"test"} for setting up linting as a component of unit testing. The default is \code{lintr = "none"}.
 See \code{\link{use_lintr}} for important details regarding unit testing with \code{lintr} in an R package.
+
+If \code{hex = TRUE}, the default \code{logo.png} will not be created if the \code{magick} package and ImageMagick are not installed.
+Instead, a message is printed notifying of this requirement. Being able to generate a default logo (that will surely be replaced later) is a very minor and unimportant feature.
+Therefore, \code{pkgpeanuts} does not have package dependencies or system requirements in this regard. This is optional.
 
 \code{pkgdown} for R package website building is also initialized, using a \code{pkgdown} directory in the package root
 directory containing template \code{_pkgdown.yml} and \code{extra.css} files.

@@ -112,6 +112,10 @@ use_clone_comments <- function(lint_as_test = FALSE){
 #' A default logo is generated and placed at \code{man/figures/logo.png}. However, it will require user customization after it is generated.
 #' Adapt the provided script and rerun to make a new logo.
 #'
+#' The default \code{logo.png} will not be created if the \code{magick} package and ImageMagick are not installed.
+#' Instead, a message is printed notifying of this requirement. Being able to generate a default logo (that will surely be replaced later) is a very minor and unimportant feature.
+#' Therefore, \code{pkgpeanuts} does not have package dependencies or system requirements in this regard. This is optional.
+#'
 #' @param account user account.
 #' @param host \code{"github"} or \code{"bitbucket"}.
 #'
@@ -123,6 +127,11 @@ use_clone_comments <- function(lint_as_test = FALSE){
 use_hex <- function(account, host = "github"){
   dir.create("data-raw", showWarnings = FALSE)
   file.copy(system.file(package = "pkgpeanuts", "resources/hex.R"), "data-raw/hex.R")
+  if(!requireNamespace("magick", quietly = TRUE)){
+    message(paste("hex = TRUE but the 'magick' package is not installed.",
+                  "hex.R template script copied but default hex logo not created."))
+    return(invisible())
+  }
   pkg <- basename(getwd())
   url <- paste0(account, ".", host, ".io/", pkg)
   out <- paste0("man/figures/logo.png")
@@ -207,6 +216,10 @@ update_readme_rmd <- function(repo, host = "github", public = TRUE){
 #' Set to \code{"test"} for setting up linting as a component of unit testing. The default is \code{lintr = "none"}.
 #' See \code{\link{use_lintr}} for important details regarding unit testing with \code{lintr} in an R package.
 #'
+#' If \code{hex = TRUE}, the default \code{logo.png} will not be created if the \code{magick} package and ImageMagick are not installed.
+#' Instead, a message is printed notifying of this requirement. Being able to generate a default logo (that will surely be replaced later) is a very minor and unimportant feature.
+#' Therefore, \code{pkgpeanuts} does not have package dependencies or system requirements in this regard. This is optional.
+#'
 #' \code{pkgdown} for R package website building is also initialized, using a \code{pkgdown} directory in the package root
 #' directory containing template \code{_pkgdown.yml} and \code{extra.css} files.
 #' The \code{docs} directory is used for website files and should be specified likewise in the remote repository settings.
@@ -225,7 +238,7 @@ update_readme_rmd <- function(repo, host = "github", public = TRUE){
 #' @param lintr character, use \code{lintr} package. See details.
 #' @param revdep logical, use revdep.
 #' @param data_raw logical, use \code{data-raw} directory for raw repository data and package dataset preparation.
-#' @param hex logical, palce default hex sticker package logo at \code{man/figures/logo.png} and a template script for customization at \code{data-raw/hex.R}.
+#' @param hex logical, place default hex sticker package logo at \code{man/figures/logo.png} (see details) and a template script for customization at \code{data-raw/hex.R}.
 #' @param news logical, use \code{NEWS.md}.
 #' @param cran_comments logical, add \code{cran-comments.md} template.
 #' @param clone_comments logical, add \code{clone-comments.md} template.
