@@ -6,6 +6,11 @@
 \usage{
 use_hex(account, host = "github")
 }
+\arguments{
+\item{account}{user account.}
+
+\item{host}{\code{"github"} or \code{"bitbucket"}.}
+}
 \value{
 side effect of creating file.
 }

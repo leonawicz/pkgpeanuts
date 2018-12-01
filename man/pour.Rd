@@ -72,5 +72,5 @@ The \code{docs} directory is used for website files and should be specified like
 \dontrun{pour(account = "github_username")}
 }
 \seealso{
-\code{\link{use_lintr}}, \code{\link{use_author}}, \code{\link{use_hex}}, \code{\link{use_clone_comments}}, \code{\link{update_readme_rmd}}
+\code{\link{use_lintr}}, \code{\link{use_hex}}, \code{\link{use_clone_comments}}, \code{\link{update_readme_rmd}}
 }

@@ -32,6 +32,3 @@ Similar issues could present on other systems depending on user permissions.
 \examples{
 \dontrun{use_lintr()}
 }
-\seealso{
-\code{\link{use_these}}
-}

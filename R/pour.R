@@ -46,7 +46,6 @@ repo <- function(){
 #'
 #' @return side effect of adding \code{lintr} scaffolding to package.
 #' @export
-#' @seealso \code{\link{use_these}}
 #'
 #' @examples
 #' \dontrun{use_lintr()}
@@ -113,6 +112,9 @@ use_clone_comments <- function(lint_as_test = FALSE){
 #' A default logo is generated and placed at \code{man/figures/logo.png}. However, it will require user customization after it is generated.
 #' Adapt the provided script and rerun to make a new logo.
 #'
+#' @param account user account.
+#' @param host \code{"github"} or \code{"bitbucket"}.
+#'
 #' @return side effect of creating file.
 #' @export
 #'
@@ -146,7 +148,7 @@ use_hex <- function(account, host = "github"){
 #' The package name is also inserted as needed, taken from \code{repo}.
 #'
 #' @param repo character, the repository name, e.g. \code{leonawicz/pkgpeanuts}.
-#' @param account character, options are \code{"github"} or \code{"bitbucket"}.
+#' @param host character, options are \code{"github"} or \code{"bitbucket"}.
 #' @param public, logical, whether the remote repository is public or private.
 #'
 #' @return side effect of updating file.
@@ -230,7 +232,7 @@ update_readme_rmd <- function(repo, host = "github", public = TRUE){
 #'
 #' @return side effect of setting up various package files and configurations.
 #' @export
-#' @seealso \code{\link{use_lintr}}, \code{\link{use_author}}, \code{\link{use_hex}}, \code{\link{use_clone_comments}}, \code{\link{update_readme_rmd}}
+#' @seealso \code{\link{use_lintr}}, \code{\link{use_hex}}, \code{\link{use_clone_comments}}, \code{\link{update_readme_rmd}}
 #'
 #' @examples
 #' # Create new R package project with RStudio. Run command inside package root directory, e.g.:

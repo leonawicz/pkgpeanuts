@@ -9,9 +9,9 @@ update_readme_rmd(repo, host = "github", public = TRUE)
 \arguments{
 \item{repo}{character, the repository name, e.g. \code{leonawicz/pkgpeanuts}.}
 
-\item{public, }{logical, whether the remote repository is public or private.}
+\item{host}{character, options are \code{"github"} or \code{"bitbucket"}.}
 
-\item{account}{character, options are \code{"github"} or \code{"bitbucket"}.}
+\item{public, }{logical, whether the remote repository is public or private.}
 }
 \value{
 side effect of updating file.
