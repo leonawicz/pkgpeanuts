@@ -309,7 +309,7 @@ pour <- function(account, name = NULL, description = NULL,
         "[![Coverage Status](https://img.shields.io/codecov/c/github/", r$account, "/", r$repo,
         "/master.svg)](https://codecov.io/github/", r$account, "/", r$repo, "?branch=master)\n\n") # nolint end
       x <- readLines("README.Rmd")
-      idx <- grep(paste("^# ", package), x)
+      idx <- grep(paste("^#", package), x)
       x <- paste0(c(x[1:idx], badges, x[(idx + 1):length(x)]), collapse = "\n")
       sink("README.Rmd")
       cat(x, "\n", sep = "")
