@@ -3,6 +3,8 @@
 pkgpeanuts <a href="man/figures/logo.png" _target="blank"><img src="man/figures/logo.png" style="margin-left:10px;margin-bottom:5px;" width="120" align="right"></a>
 ====================================================================================================================================================================
 
+**Author:** [Matthew Leonawicz](https://leonawicz.github.io/blog/) <a href="https://orcid.org/0000-0001-9452-2771" target="orcid.widget"> <image class="orcid" src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" height="16"></a> [![gitter](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/leonawicz/pkgpeanuts) <br/> **License:** [MIT](https://opensource.org/licenses/MIT)<br/>
+
 [![Travis-CI Build Status](https://travis-ci.org/leonawicz/pkgpeanuts.svg?branch=master)](https://travis-ci.org/leonawicz/pkgpeanuts) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/leonawicz/pkgpeanuts?branch=master&svg=true)](https://ci.appveyor.com/project/leonawicz/pkgpeanuts) [![Coverage Status](https://img.shields.io/codecov/c/github/leonawicz/pkgpeanuts/master.svg)](https://codecov.io/github/leonawicz/pkgpeanuts?branch=master)
 
 The intent of `pkgpeanuts` is to automate building out robust R package scaffolding for a newly created package. Create a new R package project in RStudio. Make an initial commit and link up the local repository with your empty remote repository. Then let `pkgpeanuts` take care of the rest.
