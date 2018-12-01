@@ -33,7 +33,7 @@ In file.symlink("inst/.lintr", ".lintr") :
   cannot symlink 'inst\.lintr' to '.lintr', reason 'A required privilege is not held by the client'
 ```
 
-this means that `pour` was unable to create a symlink due to restrcited permissions. You need to run RStudio as administrator to avoid this warning. The symbolic link is necessary for the current approach to combining `lintr` with `testthat` unit testing and not failing a Travis-CI build. I think there is now another way to do this, but I have not looked into it yet. Stay tuned.
+this means that `pour` was unable to create a symlink due to restricted permissions. You need to run RStudio as administrator to avoid this warning. The symbolic link is necessary for the current approach to combining `lintr` with `testthat` unit testing and not failing a Travis-CI build. I think there is now another way to do this, but I have not looked into it yet. Stay tuned.
 
 ## Shiny apps in a package
 
@@ -43,7 +43,7 @@ Add an existing, external Shiny app to a source package with `use_app`. This wil
 use_app("../app")
 ```
 
-By default this will also add a template `DESCRIPTION` file and template `Readme.md` file. These files can also be added separately using `use_app_description` and `use_app_readme`. This gives more control over the content output by `use_app_description`. These files are useful for SHiny showcase mode.
+By default this will also add a template `DESCRIPTION` file and template `Readme.md` file. These files can also be added separately using `use_app_description` and `use_app_readme`. This gives more control over the content output by `use_app_description`. These files are useful for Shiny showcase mode.
 
 ```{r use_templates, eval=FALSE}
 use_app_description("path/to/app", title = "My app", author = "Me", url = "example.com", tags = c("data analysis", "graphing"))
