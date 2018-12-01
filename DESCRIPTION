@@ -19,9 +19,9 @@ Imports:
     knitr,
     rmarkdown,
     lintr,
-    ggplot2,
-    hexSticker
+    ggplot2
 Suggests: 
+    hexSticker,
     magick
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
