@@ -1,0 +1,14 @@
+url: http://_ACCOUNT_._HOST_.io/_PACKAGE_
+
+template:
+  params:
+    ganalytics: UA-_ENTER_GOOGLE_ANALYTICS_TRACKING_ID_HERE_
+
+authors:
+  Matthew Leonawicz:
+    href: http://_ACCOUNT_._HOST_.io/
+
+navbar:
+  right:
+    - icon: fa-_HOST_ fa-lg
+      href: https://_HOSTURL_/_ACCOUNT_/_PACKAGE_

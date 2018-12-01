@@ -1,0 +1,8 @@
+docs/clone-comments.html
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+inst/doc
+revdep/checks
+revdep/library

@@ -1,0 +1,32 @@
+url: https://leonawicz.github.io/pkgpeanuts
+
+template:
+  params:
+    ganalytics: UA-46129458-3
+
+authors:
+  Matthew Leonawicz:
+    href: https://leonawicz.github.io/
+
+reference:
+- title: Package setup
+  contents:
+  - pour
+  - use_lintr
+  - use_hex
+  - use_clone_comments
+  - update_readme_rmd
+- title: Verse packages
+  desc: "Create a 'verse' package (like 'tidyverse') from a set of individual packages"
+  contents:
+- title: Shiny apps
+  desc: "Add existing Shiny apps to an R package"
+  contents:
+  - use_app
+  - use_app_description
+  - use_app_readme
+
+navbar:
+  right:
+    - icon: fa-github fa-lg
+      href: https://github.com/leonawicz/pkgpeanuts

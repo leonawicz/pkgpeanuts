@@ -1,0 +1,24 @@
+Package: pkgpeanuts
+Version: 0.1.0
+Title: Automate Robust R Package Scaffolding Setup
+Description: automates the setup of robust R package scaffolding for new R packages, including document templates, unit testing, continuous integration, code coverage, code linting, and more.
+Authors@R: person("Matthew", "Leonawicz", email = "matt_leonawicz@esource.com", role = c("aut", "cre"))
+Depends: R (>= 3.5.0)
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+ByteCompile: true
+Url: https://github.com/leonawicz/pkgpeanuts
+BugReports: https://github.com/leonawicz/pkgpeanuts/issues
+Imports: 
+    pkgdown,
+    usethis,
+    git2r
+Suggests: 
+    testthat,
+    covr,
+    knitr,
+    rmarkdown,
+    lintr
+RoxygenNote: 6.1.1
+VignetteBuilder: knitr

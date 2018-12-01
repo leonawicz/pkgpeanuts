@@ -1,0 +1,42 @@
+---
+title: "Introduction to pkgpeanuts"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to pkgpeanuts}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, comment = "#>", fig.path = "man/figures/README-", eval = TRUE,
+  message = FALSE, warning = FALSE, error = FALSE, tidy = TRUE
+)
+```
+
+The intent of `pkgpeanuts` is to automate building out robust R package scaffolding for a newly created package. Create a new R package project in RStudio. Make an initial commit and link up the local repository with your empty remote repository. Then let `pkgpeanuts` take care of the rest. It is important to note that the primary function `pkgpeanuts::pour` is not intended for existing packages.
+
+## Package setup
+
+After creating a new package in RStudio, make sure the new, empty repository exists on GitHub (or BitBucket) as well. Make an initial commit, e.g. commit the `.Rproj` file, so that you can add and push to the remote repository. If this has not been done, `pkgpeanuts` will fail. Once this minimal setup is complete, run something like the following from the package root directory:
+
+```{r pkgpeanuts, eval=FALSE}
+pkgpeanuts::pour("github_username")
+```
+
+`pkgpeanuts` has many arguments. See the help documentation for details. And again, this is not intended for existing packages.
+
+## Shiny apps in a package
+
+Add an existing, external Shiny app to a source package with `use_app`. This will copy the app into the `inst` directory. For example:
+
+```{r use_app, eval=FALSE}
+use_app("../app")
+```
+
+By default this will also add a template `DESCRIPTION` file and template `Readme.md` file. These files can also be added separately using `use_app_description` and `use_app_readme`. This gives more control over the content output by `use_app_description`. These files are useful for SHiny showcase mode.
+
+```{r use_templates, eval=FALSE}
+use_app_description("path/to/app", title = "My app", author = "Me", url = "example.com", tags = c("data analysis", "graphing"))
+use_app_readme()
+```
