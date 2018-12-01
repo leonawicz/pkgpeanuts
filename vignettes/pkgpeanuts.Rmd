@@ -26,6 +26,15 @@ pkgpeanuts::pour("github_username")
 
 `pkgpeanuts` has many arguments. See the help documentation for details. And again, this is not intended for existing packages.
 
+Note that if you provide `lintr = "test"` and receive a warning like the following:
+
+```
+In file.symlink("inst/.lintr", ".lintr") :
+  cannot symlink 'inst\.lintr' to '.lintr', reason 'A required privilege is not held by the client'
+```
+
+this means that `pour` was unable to create a symlink due to restrcited permissions. You need to run RStudio as administrator to avoid this warning. The symbolic link is necessary for the current approach to combining `lintr` with `testthat` unit testing and not failing a Travis-CI build. I think there is now another way to do this, but I have not looked into it yet. Stay tuned.
+
 ## Shiny apps in a package
 
 Add an existing, external Shiny app to a source package with `use_app`. This will copy the app into the `inst` directory. For example:
