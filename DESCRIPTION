@@ -14,14 +14,14 @@ Imports:
     pkgdown,
     usethis,
     git2r,
-    ggplot2,
-    hexSticker
-Suggests: 
     testthat,
     covr,
     knitr,
     rmarkdown,
     lintr,
+    ggplot2,
+    hexSticker
+Suggests: 
     magick
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
