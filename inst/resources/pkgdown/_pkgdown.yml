@@ -5,7 +5,7 @@ template:
     ganalytics: UA-_ENTER_GOOGLE_ANALYTICS_TRACKING_ID_HERE_
 
 authors:
-  Matthew Leonawicz:
+  _GIVEN_FAMILY_:
     href: http://_ACCOUNT_._HOST_.io/
 
 navbar:
