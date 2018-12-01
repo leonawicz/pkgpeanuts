@@ -237,7 +237,7 @@ update_readme_rmd <- function(repo, host = "github", public = TRUE){
 #'
 #' @examples
 #' # Create new R package project with RStudio. Run command inside package root directory, e.g.:
-#' \dontrun{pour(account = "github_username", name = "firstname lastname")}
+#' \dontrun{pour(account = "github_username")}
 pour <- function(account, name = NULL, description = NULL,
                  license = c("mit", "gpl3", "apl2", "cc0"),
                  host = "github", testthat = TRUE, appveyor = TRUE, travis = TRUE, codecov = TRUE,
@@ -247,9 +247,14 @@ pour <- function(account, name = NULL, description = NULL,
   license <- match.arg(license)
   lintr <- match.arg(lintr)
   usethis::use_description(description)
-  if(is.null(name)) options(usethis.full_name = "My name")
-  switch(license, mit = usethis::use_mit_license(), gpl3 = usethis::use_gpl3_license(),
-         apl2 = usethis::use_apl2_license(), cc0 = usethis::use_cc0_license())
+  if(is.null(name) & is.null(options()$usethis.full_name)) options(usethis.full_name = "Author Name")
+  if(is.null(name)){
+    switch(license, mit = usethis::use_mit_license(), gpl3 = usethis::use_gpl3_license(),
+           apl2 = usethis::use_apl2_license(), cc0 = usethis::use_cc0_license())
+  } else {
+    switch(license, mit = usethis::use_mit_license(name), gpl3 = usethis::use_gpl3_license(name),
+           apl2 = usethis::use_apl2_license(name), cc0 = usethis::use_cc0_license(name))
+  }
   if(host == "github") usethis::use_github_links()
   if(clone_comments) use_clone_comments()
   if(cran_comments) usethis::use_cran_comments()

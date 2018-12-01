@@ -72,7 +72,7 @@ The \code{docs} directory is used for website files and should be specified like
 }
 \examples{
 # Create new R package project with RStudio. Run command inside package root directory, e.g.:
-\dontrun{pour(account = "github_username", name = "firstname lastname")}
+\dontrun{pour(account = "github_username")}
 }
 \seealso{
 \code{\link{use_lintr}}, \code{\link{use_hex}}, \code{\link{use_clone_comments}}, \code{\link{update_readme_rmd}}
