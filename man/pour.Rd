@@ -4,14 +4,17 @@
 \alias{pour}
 \title{Generate package scaffolding for robust package setup}
 \usage{
-pour(account, description = NULL, license = c("mit", "gpl3", "apl2",
-  "cc0"), host = "github", testthat = TRUE, appveyor = TRUE,
-  travis = TRUE, codecov = TRUE, lintr = c("none", "user", "test"),
-  revdep = TRUE, data_raw = TRUE, hex = TRUE, news = TRUE,
-  cran_comments = TRUE, clone_comments = TRUE, readme = TRUE)
+pour(account, name = NULL, description = NULL, license = c("mit",
+  "gpl3", "apl2", "cc0"), host = "github", testthat = TRUE,
+  appveyor = TRUE, travis = TRUE, codecov = TRUE, lintr = c("none",
+  "user", "test"), revdep = TRUE, data_raw = TRUE, hex = TRUE,
+  news = TRUE, cran_comments = TRUE, clone_comments = TRUE,
+  readme = TRUE)
 }
 \arguments{
-\item{account}{user account.}
+\item{account}{character, user account.}
+
+\item{name}{character, given and family name \code{"given family"}, appears in licensing. You can leave this \code{NULL} if pulling from global options or \code{.Rprofile} instead.}
 
 \item{description}{a named list providing fields to \code{usethis::use_description} or \code{NULL} to pull from defaults.
 Consider setting default fields in \code{options}, or even \code{.Rprofile} if you create a lot of packages.}
@@ -69,7 +72,7 @@ The \code{docs} directory is used for website files and should be specified like
 }
 \examples{
 # Create new R package project with RStudio. Run command inside package root directory, e.g.:
-\dontrun{pour(account = "github_username")}
+\dontrun{pour(account = "github_username", name = "firstname lastname")}
 }
 \seealso{
 \code{\link{use_lintr}}, \code{\link{use_hex}}, \code{\link{use_clone_comments}}, \code{\link{update_readme_rmd}}

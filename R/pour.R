@@ -212,7 +212,8 @@ update_readme_rmd <- function(repo, host = "github", public = TRUE){
 #' The \code{docs} directory is used for website files and should be specified likewise in the remote repository settings.
 #' \code{pkgdown::init_site} is also called. \code{.Rbuildignore} is also updated.
 #'
-#' @param account user account.
+#' @param account character, user account.
+#' @param name character, given and family name \code{"given family"}, appears in licensing. You can leave this \code{NULL} if pulling from global options or \code{.Rprofile} instead.
 #' @param description a named list providing fields to \code{usethis::use_description} or \code{NULL} to pull from defaults.
 #' Consider setting default fields in \code{options}, or even \code{.Rprofile} if you create a lot of packages.
 #' @param license character, one of \code{"mit"}, \code{"gpl3"}, \code{"apl2"} or \code{"cc0"}.
@@ -236,8 +237,8 @@ update_readme_rmd <- function(repo, host = "github", public = TRUE){
 #'
 #' @examples
 #' # Create new R package project with RStudio. Run command inside package root directory, e.g.:
-#' \dontrun{pour(account = "github_username")}
-pour <- function(account, description = NULL,
+#' \dontrun{pour(account = "github_username", name = "firstname lastname")}
+pour <- function(account, name = NULL, description = NULL,
                  license = c("mit", "gpl3", "apl2", "cc0"),
                  host = "github", testthat = TRUE, appveyor = TRUE, travis = TRUE, codecov = TRUE,
                  lintr = c("none", "user", "test"), revdep = TRUE, data_raw = TRUE, hex = TRUE,
@@ -246,6 +247,7 @@ pour <- function(account, description = NULL,
   license <- match.arg(license)
   lintr <- match.arg(lintr)
   usethis::use_description(description)
+  if(is.null(name)) options(usethis.full_name = "My name")
   switch(license, mit = usethis::use_mit_license(), gpl3 = usethis::use_gpl3_license(),
          apl2 = usethis::use_apl2_license(), cc0 = usethis::use_cc0_license())
   if(host == "github") usethis::use_github_links()
