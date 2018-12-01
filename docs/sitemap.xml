@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://leonawicz.github.io/pkgpeanuts/index.html</loc>
+  </url>
+  <url>
+    <loc>https://leonawicz.github.io/pkgpeanuts/reference/pour.html</loc>
+  </url>
+  <url>
+    <loc>https://leonawicz.github.io/pkgpeanuts/reference/update_readme_rmd.html</loc>
+  </url>
+  <url>
+    <loc>https://leonawicz.github.io/pkgpeanuts/reference/use_app.html</loc>
+  </url>
+  <url>
+    <loc>https://leonawicz.github.io/pkgpeanuts/reference/use_app_description.html</loc>
+  </url>
+  <url>
+    <loc>https://leonawicz.github.io/pkgpeanuts/reference/use_app_readme.html</loc>
+  </url>
+  <url>
+    <loc>https://leonawicz.github.io/pkgpeanuts/reference/use_clone_comments.html</loc>
+  </url>
+  <url>
+    <loc>https://leonawicz.github.io/pkgpeanuts/reference/use_hex.html</loc>
+  </url>
+  <url>
+    <loc>https://leonawicz.github.io/pkgpeanuts/reference/use_lintr.html</loc>
+  </url>
+  <url>
+    <loc>https://leonawicz.github.io/pkgpeanuts/articles/pkgpeanuts.html</loc>
+  </url>
+</urlset>
