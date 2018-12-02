@@ -1,3 +1,4 @@
+library(pkgpeanuts)
 library(shiny)
 library(shinyBS)
 
@@ -14,8 +15,7 @@ ui <- fluidPage(
       textInput("account", "Account", width = "100%", placeholder = "username"),
       textInput("name", "Author name", width = "100%"),
       selectInput("license", "License", licenses, width = "100%"),
-      textInput("description", "Description fields", width = "100%",
-                placeholder = "list(Language = \"es\").", width = "100%"),
+      textInput("description", "Description fields", width = "100%", placeholder = "list(Language = \"es\")."),
       checkboxInput("data_raw", "data-raw", TRUE, width = "100%"),
 
       h4("Packages, imports and exports"),
@@ -77,8 +77,9 @@ server <- function(input, output){
   remotes <- reactive(if(input$remotes == "") NULL else trimws(strsplit(input$remotes, ",")[[1]]))
 # nolint end
   observeEvent(input$go_btn, {
-    safe <- !file.exists(input$path) || !length(list.files(input$path))
-    if(safe || !input$prevent){
+    #safe <- !file.exists(input$path) || !length(list.files(input$path))
+    #if(safe || !input$prevent){
+    print(input$path)
       pour(input$path, input$account, name = name(), description = desc(), license = input$license, host = input$host,
            testthat = input$testthat, appveyor = input$appveyor, travis = input$travis, codecov = input$codecov,
            lintr = lintr_val(), revdep = input$revdep, data_raw = input$data_raw, hex = input$hex,
@@ -86,7 +87,7 @@ server <- function(input, output){
            readme = readme(), vignette = input$vignette,
            depends = depends(), imports = imports(), suggests = suggests(), remotes = remotes(),
            spellcheck = input$spellcheck, tibble = input$tibble, pipe = input$pipe)
-    }
+    #}
   })
 
 }
