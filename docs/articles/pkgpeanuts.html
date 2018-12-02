@@ -100,7 +100,7 @@
 <h2 class="hasAnchor">
 <a href="#package-setup" class="anchor"></a>Package setup</h2>
 <p>After creating a new package in RStudio, make sure the new, empty repository exists on GitHub (or BitBucket) as well. Make an initial commit, e.g. commit the <code>.Rproj</code> file, so that you can add and push to the remote repository. If this has not been done, <code>pkgpeanuts</code> will fail. Once this minimal setup is complete, run something like the following from the package root directory:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pkgpeanuts<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/pkgpeanuts/topics/pour">pour</a></span>(<span class="st">"github_username"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pkgpeanuts<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/pkgpeanuts/topics/pour">pour</a></span>(<span class="dt">path =</span> <span class="st">"."</span>, <span class="dt">account =</span> <span class="st">"github_username"</span>, <span class="dt">name =</span> <span class="st">"My Name"</span>)</code></pre></div>
 <p><code>pkgpeanuts</code> has many arguments. See the help documentation for details. And again, this is not intended for existing packages.</p>
 <p>Note that if you provide <code>lintr = "test"</code> and receive a warning like the following:</p>
 <pre><code>In file.symlink("inst/.lintr", ".lintr") :

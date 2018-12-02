@@ -21,7 +21,7 @@ The intent of `pkgpeanuts` is to automate building out robust R package scaffold
 After creating a new package in RStudio, make sure the new, empty repository exists on GitHub (or BitBucket) as well. Make an initial commit, e.g. commit the `.Rproj` file, so that you can add and push to the remote repository. If this has not been done, `pkgpeanuts` will fail. Once this minimal setup is complete, run something like the following from the package root directory:
 
 ```{r pkgpeanuts, eval=FALSE}
-pkgpeanuts::pour("github_username")
+pkgpeanuts::pour(path = ".", account = "github_username", name = "My Name")
 ```
 
 `pkgpeanuts` has many arguments. See the help documentation for details. And again, this is not intended for existing packages.
