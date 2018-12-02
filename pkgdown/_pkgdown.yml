@@ -12,6 +12,7 @@ reference:
 - title: Package setup
   contents:
   - pour
+  - pourApp
   - use_lintr
   - use_hex
   - use_clone_comments

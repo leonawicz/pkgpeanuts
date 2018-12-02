@@ -19,6 +19,7 @@ Imports:
     knitr,
     rmarkdown,
     lintr,
+    shiny,
     ggplot2
 Suggests: 
     hexSticker,

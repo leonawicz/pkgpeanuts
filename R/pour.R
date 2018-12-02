@@ -125,7 +125,7 @@ use_clone_comments <- function(lint_as_test = FALSE){
 #' @examples
 #' \dontrun{use_hex(account = "username", host = "github")}
 use_hex <- function(account, host = "github"){
-  dir.create("data-raw", showWarnings = FALSE)
+  if(!file.exists("data-raw")) usethis::use_data_raw()
   file.copy(system.file(package = "pkgpeanuts", "resources/hex.R"), "data-raw/hex.R")
   if(!requireNamespace("magick", quietly = TRUE)){
     message(paste("hex = TRUE but the 'magick' package is not installed.",
@@ -190,9 +190,9 @@ update_readme_rmd <- function(repo, host = "github", public = TRUE){
     "``` r\n",
     "# install.packages(\"remotes\")\n",
     "remotes::install_", host, "(\"", repo, "\"", auth_args, ")\n",
-    "```")
+    "```\n")
   x <- readLines("README.Rmd")
-  idx <- grep("^## Installation|^install.packages\\(\"", x)
+  idx <- grep("^## Installation|::install_github\\(\"", x)
   x <- paste0(c(x[1:(idx[1] - 1)], txt, x[(idx[2] + 2):length(x)]), collapse = "\n")
   sink("README.Rmd")
   cat(paste0(x, "\n"))
@@ -205,7 +205,9 @@ update_readme_rmd <- function(repo, host = "github", public = TRUE){
 #'
 #' Wrapper function around several package setup functions from the \code{usethis} and \code{pkgpeanuts} packages.
 #'
-#' Run this function from the new package's root directory.
+#' Run this function from the new package's root directory. The project should be brand new, but must exist. Make a new package project in RStudio.
+#' The eventual goal is to start a project from scratch, but currently this does not work due to issues involving \code{git2r} and \code{usethis} and making the initial git commit and push to new GitHub remote repo.
+#' For now, just leave \code{path = "."}.
 #'
 #' \code{pour} wraps around the following functions: \code{use_description}, \code{use_license},
 #' \code{use_github_links}, \code{use_clone_comments}, \code{use_cran_comments},\code{use_data_raw}, \code{use_news_md},
@@ -221,16 +223,17 @@ update_readme_rmd <- function(repo, host = "github", public = TRUE){
 #' Therefore, \code{pkgpeanuts} does not have package dependencies or system requirements in this regard. This is optional.
 #'
 #' \code{pkgdown} for R package website building is also initialized, using a \code{pkgdown} directory in the package root
-#' directory containing template \code{_pkgdown.yml} and \code{extra.css} files.
+#' directory containing template \code{_pkgdown.yml} and \code{extra.css} files. Note that \code{pkgdown} is always included by \code{pour}.
 #' The \code{docs} directory is used for website files and should be specified likewise in the remote repository settings.
-#' \code{pkgdown::init_site} is also called. \code{.Rbuildignore} is also updated.
 #'
+#' @param path character, package directory. Package name used by \code{pour} is taken from the path's \code{basename}.
 #' @param account character, user account.
-#' @param name character, given and family name \code{"given family"}, appears in licensing. You can leave this \code{NULL} if pulling from global options or \code{.Rprofile} instead.
+#' @param name character, given and family name \code{"given family"}, appears in licensing and \code{pkgdown} metadata. You can leave this \code{NULL} if pulling from global options or \code{.Rprofile} instead.
 #' @param description a named list providing fields to \code{usethis::use_description} or \code{NULL} to pull from defaults.
 #' Consider setting default fields in \code{options}, or even \code{.Rprofile} if you create a lot of packages.
 #' @param license character, one of \code{"mit"}, \code{"gpl3"}, \code{"apl2"} or \code{"cc0"}.
 #' @param host \code{"github"} (default) or \code{"bitbucket"}.
+#' @param public logical, public remote repository.
 #' @param testthat logical, use \code{testthat}.
 #' @param appveyor logical, use Appveyor. Applicable if \code{host = "github"}.
 #' @param travis logical, use Travis-CI. Applicable if \code{host = "github"}.
@@ -240,9 +243,19 @@ update_readme_rmd <- function(repo, host = "github", public = TRUE){
 #' @param data_raw logical, use \code{data-raw} directory for raw repository data and package dataset preparation.
 #' @param hex logical, place default hex sticker package logo at \code{man/figures/logo.png} (see details) and a template script for customization at \code{data-raw/hex.R}.
 #' @param news logical, use \code{NEWS.md}.
+#' @param code_of_conduct logical, include \code{CODE_OF_CONDUCT.md}.
 #' @param cran_comments logical, add \code{cran-comments.md} template.
 #' @param clone_comments logical, add \code{clone-comments.md} template.
-#' @param readme logical, Add template \code{README.Rmd} and update installation section. See \code{\link{update_readme_rmd}}.
+#' @param readme logical, add \code{README.Rmd} template and update installation section. See \code{\link{update_readme_rmd}}.
+#' @param vignette logical, add package vignette template.
+#' @param depends character, vector of dependencies, e.g., \code{"R (>= 3.5.0)", "showtext"}.
+#' @param imports character, as above.
+#' @param suggests character, as above.
+#' @param remotes character, as above.
+#' @param spellcheck logical, spell checking as unit test and add \code{WORDLIST} file for whitelisted words.
+#' @param tibble logical, for importing and re-exporting \code{tibble}.
+#' @param pipe logical, for importing and re-exporting \code{magrittr} pipe operator {\%>\%}.
+#' @param github_args named list, if you need to provide arguments to \code{usethis::use_github}.
 #'
 #' @return side effect of setting up various package files and configurations.
 #' @export
@@ -251,15 +264,44 @@ update_readme_rmd <- function(repo, host = "github", public = TRUE){
 #' @examples
 #' # Create new R package project with RStudio. Run command inside package root directory, e.g.:
 #' \dontrun{pour(account = "github_username")}
-pour <- function(account, name = NULL, description = NULL,
+pour <- function(path = ".", account, name = NULL, description = NULL, # nolint start
                  license = c("mit", "gpl3", "apl2", "cc0"),
-                 host = "github", testthat = TRUE, appveyor = TRUE, travis = TRUE, codecov = TRUE,
+                 host = "github", public = TRUE,
+                 testthat = TRUE, appveyor = TRUE, travis = TRUE, codecov = TRUE,
                  lintr = c("none", "user", "test"), revdep = TRUE, data_raw = TRUE, hex = TRUE,
-                 news = TRUE, cran_comments = TRUE, clone_comments = TRUE, readme = TRUE){
-  package <- basename(getwd())
+                 news = TRUE, code_of_conduct = TRUE, cran_comments = TRUE, clone_comments = TRUE,
+                 readme = TRUE, vignette = TRUE,
+                 depends = NULL, imports = NULL, suggests = NULL, remotes = NULL,
+                 spellcheck = TRUE, tibble = FALSE, pipe = FALSE, github_args = NULL){
+  package <- if(path == ".") basename(getwd()) else basename(path)
+  # wd <- getwd()
+  # print(0)
+  # usethis::create_package(path)
+  # setwd(path)
+  # print(1)
+  # usethis::use_git()
+  # print(2)
+  # usethis::use_git_ignore(".Rproj.user", ".Rhistory", ".RData", ".Ruserdata")
+  # print(3)
+  # if(host == "github"){
+  #   github_args <- c(list(private = !public), github_args)
+  #   print(4)
+  #   github_args <- github_args[!duplicated(names(github_args))]
+  #   print(5)
+  #   if(Sys.info()[["sysname"]] == "Windows" & !"credentials" %in% names(github_args))
+  #     github_args$credentials <- git2r::cred_ssh_key()
+  #   print(6)
+  #   print(github_args)
+  #   do.call(usethis::use_github, github_args)
+  # }
   license <- match.arg(license)
   lintr <- match.arg(lintr)
-  usethis::use_description(description)
+  fields <- if(length(description)) description else list()
+  if(!is.null(depends)) fields$Depends <- paste0(depends, collapse = ",\n    ")
+  usethis::use_description(fields)
+  if(!is.null(imports)) usethis::use_package(imports, "Imports")
+  if(!is.null(suggests)) usethis::use_package(suggests, "Suggests")
+  if(!is.null(remotes)) usethis::use_dev_package(remotes)
   if(is.null(name) & is.null(options()$usethis.full_name)) options(usethis.full_name = "Author Name")
   if(is.null(name)){
     switch(license, mit = usethis::use_mit_license(), gpl3 = usethis::use_gpl3_license(),
@@ -269,16 +311,19 @@ pour <- function(account, name = NULL, description = NULL,
            apl2 = usethis::use_apl2_license(name), cc0 = usethis::use_cc0_license(name))
   }
   if(host == "github") usethis::use_github_links()
+  if(tibble) usethis::use_tibble()
+  if(pipe) usethis::use_pipe()
+  if(code_of_conduct) usethis::use_code_of_conduct()
   if(clone_comments) use_clone_comments()
   if(cran_comments) usethis::use_cran_comments()
   if(data_raw) usethis::use_data_raw()
   if(hex) use_hex(account, host)
   if(news) usethis::use_news_md()
   if(testthat) usethis::use_testthat()
-  if(!file.exists(paste0("vignettes/", package, ".Rmd"))) usethis::use_vignette(package)
+  if(vignette & !file.exists(paste0("vignettes/", package, ".Rmd"))) usethis::use_vignette(package)
   if(readme){
     usethis::use_readme_rmd()
-    update_readme_rmd(paste(account, package, sep = "/"))
+    update_readme_rmd(paste(account, package, sep = "/"), host, public)
   }
   if(revdep) usethis::use_revdep()
   if(lintr == "test"){
@@ -286,6 +331,7 @@ pour <- function(account, name = NULL, description = NULL,
   } else if(lintr == "user"){
     use_lintr()
   }
+  if(spellcheck) usethis::use_spell_check()
   message("Building favicons and initializing pkgdown...")
   pkgdown::build_favicon()
   pkgdown::init_site()
@@ -316,22 +362,12 @@ pour <- function(account, name = NULL, description = NULL,
     if(travis) usethis::use_travis()
     if(codecov) usethis::use_coverage()
     if(readme){
-      badges <- paste0(
-        "\n[![Travis-CI Build Status](https://travis-ci.org/", r$account, # nolint start
-        "/", r$repo, ".svg?branch=master)](https://travis-ci.org/",
-        r$account, "/", r$repo, ")\n",
-        "[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/", r$account,
-        "/", r$repo, "?branch=master&svg=true)](https://ci.appveyor.com/project/", r$account,
-        "/", r$repo, ")\n",
-        "[![Coverage Status](https://img.shields.io/codecov/c/github/", r$account, "/", r$repo,
-        "/master.svg)](https://codecov.io/github/", r$account, "/", r$repo, "?branch=master)") # nolint end
       x <- readLines("README.Rmd")
       idx <- grep(paste("^#", package), x)
       if(hex & file.exists("man/figures/logo.png") & x[idx] == paste("#", package))
         x[idx] <- paste(x[idx], '<a href="man/figures/logo.png" _target="blank"><img src="man/figures/logo.png" style="margin-left:10px;margin-bottom:5px;" width="120" align="right"></a>') #nolint
-      x <- paste0(c(x[1:idx], badges, x[(idx + 1):length(x)]), collapse = "\n")
       sink("README.Rmd")
-      cat(x, "\n", sep = "")
+      cat(paste0(x, collapse = "\n"), "\n", sep = "")
       sink()
     }
     if(travis & codecov){
@@ -344,4 +380,18 @@ pour <- function(account, name = NULL, description = NULL,
   }
   message("Package peanuts added for protection.")
   invisible()
+}
+# nolint end
+
+#' Pour packing peanuts from Shiny app
+#'
+#' Launch a Shiny app to use \code{\link{pour}} in GUI form.
+#'
+#' @return nothing is returned but a Shiny app is launched in the browser
+#' @export
+#'
+#' @examples
+#' \dontrun{pourApp()}
+pourApp <- function(){
+  shiny::runApp(system.file("shiny/pour-peanuts", package = "pkgpeanuts"))
 }
