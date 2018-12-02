@@ -26,7 +26,7 @@ When \code{lint_as_test = TRUE}, this function creates the template \code{.lintr
 adds a symbolic link to this file in the package root directory.
 It also adds both files (as applicable) to \code{.Rbuildignore}. It also creates a unit test for lint-free package code only when \code{lint_as_test = TRUE}.
 
-NOTE: You will have to run R as Administrator on Windows when \code{lint_as_test = TRUE} or you it the function will fail to create the symbolic link.
+NOTE: You will have to run R as Administrator on Windows when \code{lint_as_test = TRUE} or the function will fail to create the symbolic link.
 Similar issues could present on other systems depending on user permissions.
 }
 \examples{
