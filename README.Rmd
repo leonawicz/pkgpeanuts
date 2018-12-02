@@ -53,7 +53,7 @@ pkgpeanuts::pour("github_username")
 
 At each of my last two workplaces I have created workplace context-specific renditions of this package. This has enabled me to spin up new packages at work quickly and still have them conforming to professional standards and looking polished, despite limited time. By avoiding manually fussing with extraneous details I'd prefer to automate, I can focus on the fun part: making the actual package. `pkgpeanuts` represents a generalization of my previous packages, stripping away code related to specific contexts. By design it must try to achieve less than my other packages did, but if generalized appropriately, could be useful to the R community.
 
-This is largely a wrapper around a plethora of `usethis` functions, plus additional functions from `pkgpeanuts`. It helps you slingshot past making many individual calls to various package setup functions, particularly when you leverage a lot of them and make a lot of packages. My goal is to make this package general enough that it can be useful to others, while allowing it to still handle as much as it possible so that users can really feel the boost.
+This is largely a wrapper around a plethora of `usethis` functions, plus additional functions from `pkgpeanuts`. `usethis` is also receiving a number of significant changes in recent development, which has led to some new simplifications of things I no longer need to do myself when making packages. This package isn't for everyone, but I find it useful, and one of the main reasons for making it is to provide the Shiny app wrapper.
 
 ```{r md_pkg_ref, echo = FALSE, results = "asis", eval = is_md}
 cat('## Reference\n\n[Complete package reference and function documentation](https://leonawicz.github.io/pkgpeanuts/)')
