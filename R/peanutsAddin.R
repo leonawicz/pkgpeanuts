@@ -1,0 +1,110 @@
+#' @import shiny
+#' @importFrom shinyBS bsCollapse bsCollapsePanel
+#' @importFrom miniUI miniPage gadgetTitleBar miniContentPanel miniTitleBarButton
+NULL
+
+# nolint start
+
+#' Pour packing peanuts from Shiny gadget addin
+#'
+#' Launch a Shiny gadget to use \code{\link{pour}} in GUI form. See \code{pour} for details.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{peanutsAddin()}
+peanutsAddin <- function(){
+  doc_files <- c("README.Rmd" = "readme", "NEWS.md" = "news", "CODE_OF_CONDUCT.md" = "coc",
+                 "cran-comments.md" = "cran-comments", "clone-comments.md" = "clone-comments")
+  licenses <- c("MIT" = "mit", "GPL3" = "gpl3", "APL2" = "apl2", "CC0" = "cc0")
+
+  ui <- miniPage(
+    gadgetTitleBar("Package peanuts: Pack well.", right = miniTitleBarButton("pour", "Pack", primary = TRUE)),
+    miniContentPanel(
+      bsCollapse(id = "bsc", open = "General information",
+        bsCollapsePanel("General information", style = "info",
+          splitLayout(
+            selectInput("host", "Host", c("GitHub" = "github", "BitBucket" = "bitbucket"), width = "100%"),
+            selectInput("license", "License", licenses, width = "100%")
+          ),
+          splitLayout(
+            textInput("account", "Account", width = "100%", placeholder = "username"),
+            textInput("name", "Author name", width = "100%", placeholder = "First Last")
+          ),
+          textInput("description", "Description fields", width = "100%",
+                    placeholder = "list(Language = \"es\")."),
+          checkboxInput("data_raw", "Use data-raw", TRUE, width = "100%")),
+        bsCollapsePanel("Packages, imports and exports", style = "info",
+          splitLayout(
+            textInput("depends", "Depends", width = "100%", placeholder = "R (>= 3.5.0), sysfonts"),
+            textInput("imports", "Imports", width = "100%", placeholder = "dplyr,purrr")
+          ),
+          splitLayout(
+            textInput("suggests", "Suggests", width = "100%", placeholder = "knitr, rmarkdown"),
+            textInput("remotes", "Remotes", width = "100%", placeholder = "ideally, nothing")
+          ),
+          checkboxInput("tibble", "Import and re-export tibble", FALSE, width = "100%"),
+          checkboxInput("pipe", "Import and re-export pipe (%>%)", FALSE, width = "100%")),
+        bsCollapsePanel("Documentation", style = "info",
+          checkboxGroupInput("docs", "Files", doc_files, doc_files[-5], TRUE, width = "100%"),
+          checkboxInput("vignette", "Add package vignette template", TRUE, width = "100%"),
+          checkboxInput("hex", "Add hex logo customization script", TRUE, width = "100%"),
+          conditionalPanel("input.testthat == true",
+            checkboxInput("spellcheck", "Spell check as unit test", TRUE, width = "100%"))),
+        bsCollapsePanel("Unit testing", style = "info",
+          checkboxInput("testthat", "testthat", TRUE, width = "100%")),
+        bsCollapsePanel("Continuous integration", style = "info",
+          checkboxInput("travis", "Travis-CI", TRUE, width = "100%"),
+          checkboxInput("appveyor", "Appveyor", TRUE, width = "100%")),
+        bsCollapsePanel("Code coverage", style = "info",
+          checkboxInput("codecov", "codecov.io", TRUE, width = "100%")),
+        bsCollapsePanel("Code linting", style = "info",
+          checkboxInput("lintr", "lintr", TRUE, width = "100%"),
+          conditionalPanel("input.testthat == true && input.lintr == true",
+            checkboxInput("lint_as_test", "Use lintr as testthat unit test", FALSE, width = "100%"))),
+        bsCollapsePanel("Reverse dependency checking", style = "info",
+          checkboxInput("revdep", "revdepcheck", TRUE, width = "100%"))
+      ),
+      #checkboxInput("prevent", "Prevent use in existing, non-empty directory.", TRUE, width = "100%"), # nolint
+      br()
+    )
+  )
+
+  server <- function(input, output){
+    name <- reactive(if(input$name == "") "Author Name" else input$name)
+    desc <- reactive(if(input$description == "") NULL else input$description)
+    lintr_val <- reactive({
+      if(!input$lintr) return("none")
+      if(is.null(input$lint_as_test) || !input$lint_as_test) "user" else "test"
+    })
+    readme <- reactive("readme" %in% input$docs)
+    news <- reactive("news" %in% input$docs)
+    coc <- reactive("coc" %in% input$docs)
+    crancom <- reactive("cran-comments" %in% input$docs)
+    clonecom <- reactive("clone-comments" %in% input$docs)
+    depends <- reactive(if(input$depends == "") NULL else trimws(strsplit(input$depends, ",")[[1]]))
+    imports <- reactive(if(input$imports == "") NULL else trimws(strsplit(input$imports, ",")[[1]]))
+    suggests <- reactive(if(input$suggests == "") NULL else trimws(strsplit(input$suggests, ",")[[1]]))
+    remotes <- reactive(if(input$remotes == "") NULL else trimws(strsplit(input$remotes, ",")[[1]]))
+
+    observeEvent(input$pour, {
+      #safe <- !file.exists(input$path) || !length(list.files(input$path))
+      #if(safe || !input$prevent){
+      #print(input$path)
+      pour(".", input$account, name = name(), description = desc(), license = input$license, host = input$host,
+           testthat = input$testthat, appveyor = input$appveyor, travis = input$travis, codecov = input$codecov,
+           lintr = lintr_val(), revdep = input$revdep, data_raw = input$data_raw, hex = input$hex,
+           news = news(), code_of_conduct = coc(), cran_comments = crancom(), clone_comments = clonecom(),
+           readme = readme(), vignette = input$vignette,
+           depends = depends(), imports = imports(), suggests = suggests(), remotes = remotes(),
+           spellcheck = input$spellcheck, tibble = input$tibble, pipe = input$pipe)
+      #}
+    })
+
+  }
+
+  viewer <- dialogViewer("Add package scaffolding to a new R package", 600, 600)
+  runGadget(ui, server, viewer = viewer)
+}
+
+# nolint end

@@ -382,16 +382,3 @@ pour <- function(path = ".", account, name = NULL, description = NULL, # nolint 
   invisible()
 }
 # nolint end
-
-#' Pour packing peanuts from Shiny app
-#'
-#' Launch a Shiny app to use \code{\link{pour}} in GUI form.
-#'
-#' @return nothing is returned but a Shiny app is launched in the browser
-#' @export
-#'
-#' @examples
-#' \dontrun{pourApp()}
-pourApp <- function(){
-  shiny::runApp(system.file("shiny/pour-peanuts", package = "pkgpeanuts"))
-}
