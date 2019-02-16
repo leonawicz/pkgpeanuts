@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create an app DESCRIPTION file — use_app_description • pkgpeanuts</title>
+<title>Pour packing peanuts from Shiny gadget addin — peanutsAddin • pkgpeanuts</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -39,9 +39,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Create an app DESCRIPTION file — use_app_description" />
+<meta property="og:title" content="Pour packing peanuts from Shiny gadget addin — peanutsAddin" />
 
-<meta property="og:description" content="Add a DESCRIPTION template to a Shiny app." />
+<meta property="og:description" content="Launch a Shiny gadget to use pour in GUI form. See pour for details." />
 
 <meta property="og:image" content="https://leonawicz.github.io/pkgpeanuts/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -126,81 +126,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create an app DESCRIPTION file</h1>
+    <h1>Pour packing peanuts from Shiny gadget addin</h1>
     
-    <div class="hidden name"><code>use_app_description.Rd</code></div>
+    <div class="hidden name"><code>peanutsAddin.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Add a DESCRIPTION template to a Shiny app.</p>
+    <p>Launch a Shiny gadget to use <code><a href='pour.html'>pour</a></code> in GUI form. See <code>pour</code> for details.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>use_app_description</span>(<span class='kw'>base_path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='no'>title</span>, <span class='kw'>author</span> <span class='kw'>=</span> <span class='st'>"Author Name"</span>,
-  <span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://insert_author_account_here.github.io/"</span>,
-  <span class='kw'>license</span> <span class='kw'>=</span> <span class='st'>"MIT"</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"Showcase"</span>, <span class='no'>tags</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>base_path</th>
-      <td><p>output directory.</p></td>
-    </tr>
-    <tr>
-      <th>title</th>
-      <td><p>app title.</p></td>
-    </tr>
-    <tr>
-      <th>author</th>
-      <td><p>author name.</p></td>
-    </tr>
-    <tr>
-      <th>url</th>
-      <td><p>author url.</p></td>
-    </tr>
-    <tr>
-      <th>license</th>
-      <td><p>license type.</p></td>
-    </tr>
-    <tr>
-      <th>mode</th>
-      <td><p>Shiny display mode.</p></td>
-    </tr>
-    <tr>
-      <th>tags</th>
-      <td><p>optional tags. May be a vector. See details.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>This file is used with Shiny app showcase mode.
-Most arguments to <code>use_app_description</code> have defaults you must override, either when calling this function directly,
-or making edits to the output after calling <code><a href='use_app.html'>use_app</a></code>.
-<code>title</code> and <code>tags</code> do not have defaults. If missing, they should be updated directly in the generated DESCRIPTION file.
-Tags passed in the form <code>tags = c("tag", "another tag")</code> will result in <code>tag, another-tag</code>.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='use_app.html'>use_app</a></code>, <code><a href='use_app_readme.html'>use_app_readme</a></code></p></div>
-    
+    <pre class="usage"><span class='fu'>peanutsAddin</span>()</pre>
+        
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'>use_app_description</span>()
+<span class='fu'>peanutsAddin</span>()
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 
