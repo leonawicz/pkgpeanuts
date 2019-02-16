@@ -18,14 +18,11 @@ The intent of `pkgpeanuts` is to automate building out robust R package scaffold
 
 ## Package setup
 
-After creating a new package in RStudio, make sure the new, empty repository exists on GitHub (or BitBucket) as well. Make an initial commit, e.g. commit the `.Rproj` file, so that you can add and push to the remote repository. If this has not been done, `pkgpeanuts` will fail. Once this minimal setup is complete, run something like the following from the package root directory:
+If this has not been done, pkgpeanuts will likely fail. Its use will become less problematic later, but currently there are issues yet to be worked out.
 
-```{r pkgpeanuts, eval=FALSE}
-pkgpeanuts::pour(path = ".", account = "github_username", name = "My Name")
-```
+Once this minimal setup is complete, call `pkgpeanuts::pour` from the package root directory with your desired arguments. I suggest not doing this, however. Instead, use the RStudio addin.
 
-`pkgpeanuts` has many arguments. See the help documentation for details. And again, this is not intended for existing packages.
-
+pkgpeanuts has many arguments. See the help documentation for details. And again, this is not intended for existing packages.
 Note that if you provide `lintr = "test"` and receive a warning like the following:
 
 ```
