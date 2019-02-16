@@ -19,7 +19,10 @@ Imports:
     knitr,
     rmarkdown,
     lintr,
-    shiny,
+    shiny (>= 0.13),
+    shinyBS,
+    miniUI (>= 0.1.1),
+    rstudioapi (>= 0.5),
     ggplot2
 Suggests: 
     hexSticker,
