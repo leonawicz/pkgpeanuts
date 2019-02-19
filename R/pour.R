@@ -335,7 +335,7 @@ pour <- function(path = ".", account, name = NULL, description = NULL, # nolint 
   }
   if(spellcheck) usethis::use_spell_check()
   message("Building favicons and initializing pkgdown...")
-  pkgdown::build_favicon()
+  if(file.exists("man/figures/logo.png")) pkgdown::build_favicon()
   pkgdown::init_site()
   pdfiles <- list.files(file.path(system.file(package = "pkgpeanuts"), "resources/pkgdown"),
                         full.names = TRUE)
@@ -367,7 +367,7 @@ pour <- function(path = ".", account, name = NULL, description = NULL, # nolint 
       x <- readLines("README.Rmd")
       idx <- grep(paste("^#", package), x)
       if(hex & file.exists("man/figures/logo.png") & x[idx] == paste("#", package))
-        x[idx] <- paste(x[idx], '<a href="man/figures/logo.png" _target="blank"><img src="man/figures/logo.png" style="margin-left:10px;margin-bottom:5px;" width="120" align="right"></a>') #nolint
+        x[idx] <- paste(x[idx], '<img src="man/figures/logo.png" style="margin-left:10px;margin-bottom:5px;" width="120" align="right">') #nolint
       sink("README.Rmd")
       cat(paste0(x, collapse = "\n"), "\n", sep = "")
       sink()
