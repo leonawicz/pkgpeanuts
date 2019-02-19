@@ -24,17 +24,18 @@ peanutsAddin <- function(){
       bsCollapse(id = "bsc", open = "General information",
         bsCollapsePanel("General information", style = "info",
           splitLayout(
-            selectInput("host", "Host", c("GitHub" = "github", "BitBucket" = "bitbucket"), width = "100%"),
-            selectInput("license", "License", licenses, width = "100%")
+            radioButtons("host", "Host", c("GitHub" = "github", "BitBucket" = "bitbucket"),
+                         inline = TRUE, width = "100%"),
+            radioButtons("license", "License", licenses, inline = TRUE, width = "100%"),
+            cellWidths = rep(260, 2)
           ),
           splitLayout(
             textInput("account", "Account", width = "100%", placeholder = "username"),
             textInput("name", "Author name", width = "100%", placeholder = "First Last")
           ),
           textInput("description", "Description fields", width = "100%",
-                    placeholder = "list(Language = \"es\")."),
-          checkboxInput("data_raw", "Use data-raw", width = "100%")),
-        bsCollapsePanel("Packages, imports and exports", style = "info",
+                    placeholder = "list(Language = \"es\")")),
+        bsCollapsePanel("Packages, import/export and data", style = "info",
           splitLayout(
             textInput("depends", "Depends", width = "100%", placeholder = "R (>= 3.5.0), sysfonts"),
             textInput("imports", "Imports", width = "100%", placeholder = "dplyr,purrr")
@@ -44,7 +45,8 @@ peanutsAddin <- function(){
             textInput("remotes", "Remotes", width = "100%", placeholder = "ideally, nothing")
           ),
           checkboxInput("tibble", "Import and re-export tibble", width = "100%"),
-          checkboxInput("pipe", "Import and re-export pipe (%>%)", width = "100%")),
+          checkboxInput("pipe", "Import and re-export pipe (%>%)", width = "100%"),
+          checkboxInput("data_raw", "Use data-raw", width = "100%")),
         bsCollapsePanel("Documentation", style = "info",
           checkboxGroupInput("docs", "Files", doc_files, doc_files, TRUE, width = "100%"),
           checkboxInput("vignette", "Add package vignette template", width = "100%"),
