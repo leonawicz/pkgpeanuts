@@ -14,16 +14,31 @@ knitr::opts_chunk$set(
 )
 ```
 
-The intent of `pkgpeanuts` is to automate building out robust R package scaffolding for a newly created package. Create a new R package project in RStudio. Make an initial commit and link up the local repository with your empty remote repository. Then let `pkgpeanuts` take care of the rest. It is important to note that the primary function `pkgpeanuts::pour` is not intended for existing packages.
+The intent of `pkgpeanuts` is to automate building out robust R package scaffolding for a newly created package. Create a new R package project in RStudio. Then let `pkgpeanuts` take care of the rest. It is important to note that the primary function `pkgpeanuts::pour` is not intended for existing packages.
 
 ## Package setup
 
-If this has not been done, pkgpeanuts will likely fail. Its use will become less problematic later, but currently there are issues yet to be worked out.
+After creating a new local package project with git in RStudio, call `pkgpeanuts::pour` from the package root directory with your desired arguments. I suggest not doing this, however. Instead, use the convenient RStudio addin.
 
-Once this minimal setup is complete, call `pkgpeanuts::pour` from the package root directory with your desired arguments. I suggest not doing this, however. Instead, use the RStudio addin.
+`pkgpeanuts` has many arguments. See the help documentation for details. And again, this is not intended for existing packages.
 
-pkgpeanuts has many arguments. See the help documentation for details. And again, this is not intended for existing packages.
-Note that if you provide `lintr = "test"` and receive a warning like the following:
+### Special notes
+
+This is relevant particularly for Windows users. I have not tested on other systems.
+
+* Must be in a new, local package project (using git) created in RStudio
+* Corresponding remote repository must not yet exist on GitHub (create remote repo error)
+* .Renviron must contain a valid GITHUB_PAT entry
+* For the time being, the addin (but not the `pour` function itself), will do the following:
+
+```{r eval=FALSE}
+cred <- git2r::cred_ssh_key(publickey = "~/../.ssh/id_rsa.pub", privatekey = "~/../.ssh/id_rsa")
+usethis::use_github(credentials = cred)
+```
+
+This is the only way I currently have things functioning without errors.
+
+In the addin, the code linting option is currently disabled. Note that if you provide `lintr = "test"` to `pour` and receive a warning like the following:
 
 ```
 In file.symlink("inst/.lintr", ".lintr") :

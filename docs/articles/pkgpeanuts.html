@@ -95,21 +95,32 @@
 
     
     
-<p>The intent of <code>pkgpeanuts</code> is to automate building out robust R package scaffolding for a newly created package. Create a new R package project in RStudio. Make an initial commit and link up the local repository with your empty remote repository. Then let <code>pkgpeanuts</code> take care of the rest. It is important to note that the primary function <code><a href="../reference/pour.html">pkgpeanuts::pour</a></code> is not intended for existing packages.</p>
+<p>The intent of <code>pkgpeanuts</code> is to automate building out robust R package scaffolding for a newly created package. Create a new R package project in RStudio. Then let <code>pkgpeanuts</code> take care of the rest. It is important to note that the primary function <code><a href="../reference/pour.html">pkgpeanuts::pour</a></code> is not intended for existing packages.</p>
 <section id="package-setup" class="level2"><h2>Package setup</h2>
-<p>If this has not been done, pkgpeanuts will likely fail. Its use will become less problematic later, but currently there are issues yet to be worked out.</p>
-<p>Once this minimal setup is complete, call <code><a href="../reference/pour.html">pkgpeanuts::pour</a></code> from the package root directory with your desired arguments. I suggest not doing this, however. Instead, use the RStudio addin.</p>
-<p>pkgpeanuts has many arguments. See the help documentation for details. And again, this is not intended for existing packages. Note that if you provide <code>lintr = "test"</code> and receive a warning like the following:</p>
+<p>After creating a new local package project with git in RStudio, call <code><a href="../reference/pour.html">pkgpeanuts::pour</a></code> from the package root directory with your desired arguments. I suggest not doing this, however. Instead, use the convenient RStudio addin.</p>
+<p><code>pkgpeanuts</code> has many arguments. See the help documentation for details. And again, this is not intended for existing packages.</p>
+<section id="special-notes" class="level3"><h3>Special notes</h3>
+<p>This is relevant particularly for Windows users. I have not tested on other systems.</p>
+<ul>
+<li>Must be in a new, local package project (using git) created in RStudio</li>
+<li>Corresponding remote repository must not yet exist on GitHub (create remote repo error)</li>
+<li>.Renviron must contain a valid GITHUB_PAT entry</li>
+<li>For the time being, the addin (but not the <code>pour</code> function itself), will do the following:</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">cred &lt;-<span class="st"> </span>git2r<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/git2r/topics/cred_ssh_key">cred_ssh_key</a></span>(<span class="dt">publickey =</span> <span class="st">"~/../.ssh/id_rsa.pub"</span>, <span class="dt">privatekey =</span> <span class="st">"~/../.ssh/id_rsa"</span>)</a>
+<a class="sourceLine" id="cb1-2" title="2">usethis<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/usethis/topics/use_github">use_github</a></span>(<span class="dt">credentials =</span> cred)</a></code></pre></div>
+<p>This is the only way I currently have things functioning without errors.</p>
+<p>In the addin, the code linting option is currently disabled. Note that if you provide <code>lintr = "test"</code> to <code>pour</code> and receive a warning like the following:</p>
 <pre><code>In file.symlink("inst/.lintr", ".lintr") :
   cannot symlink 'inst\.lintr' to '.lintr', reason 'A required privilege is not held by the client'</code></pre>
 <p>this means that <code>pour</code> was unable to create a symlink due to restricted permissions. You need to run RStudio as administrator to avoid this warning. The symbolic link is necessary for the current approach to combining <code>lintr</code> with <code>testthat</code> unit testing and not failing a Travis-CI build. I think there is now another way to do this, but I have not looked into it yet. Stay tuned.</p>
-</section><section id="shiny-apps-in-a-package" class="level2"><h2>Shiny apps in a package</h2>
+</section></section><section id="shiny-apps-in-a-package" class="level2"><h2>Shiny apps in a package</h2>
 <p>Add an existing, external Shiny app to a source package with <code>use_app</code>. This will copy the app into the <code>inst</code> directory. For example:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="../reference/use_app.html">use_app</a></span>(<span class="st">"../app"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="../reference/use_app.html">use_app</a></span>(<span class="st">"../app"</span>)</a></code></pre></div>
 <p>By default this will also add a template <code>DESCRIPTION</code> file and template <code>Readme.md</code> file. These files can also be added separately using <code>use_app_description</code> and <code>use_app_readme</code>. This gives more control over the content output by <code>use_app_description</code>. These files are useful for Shiny showcase mode.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="../reference/use_app_description.html">use_app_description</a></span>(<span class="st">"path/to/app"</span>, <span class="dt">title =</span> <span class="st">"My app"</span>, <span class="dt">author =</span> <span class="st">"Me"</span>, <span class="dt">url =</span> <span class="st">"example.com"</span>, </a>
-<a class="sourceLine" id="cb3-2" title="2">    <span class="dt">tags =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"data analysis"</span>, <span class="st">"graphing"</span>))</a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="kw"><a href="../reference/use_app_readme.html">use_app_readme</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="../reference/use_app_description.html">use_app_description</a></span>(<span class="st">"path/to/app"</span>, <span class="dt">title =</span> <span class="st">"My app"</span>, <span class="dt">author =</span> <span class="st">"Me"</span>, <span class="dt">url =</span> <span class="st">"example.com"</span>, </a>
+<a class="sourceLine" id="cb4-2" title="2">    <span class="dt">tags =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"data analysis"</span>, <span class="st">"graphing"</span>))</a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="kw"><a href="../reference/use_app_readme.html">use_app_readme</a></span>()</a></code></pre></div>
 </section>
 </div>
 

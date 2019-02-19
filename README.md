@@ -18,15 +18,13 @@ Status](https://img.shields.io/codecov/c/github/leonawicz/pkgpeanuts/master.svg)
 
 The intent of `pkgpeanuts` is to automate building out robust R package
 scaffolding for a newly created package. Create a new R package project
-in RStudio. Make an initial commit and link up the local repository with
-your empty remote repository. Then let `pkgpeanuts` take care of the
-rest.
+with git in RStudio. Then let `pkgpeanuts` take care of the rest.
 
 This package is in early development. It is not intended for operating
 on existing, developed packages; only new packages as newly created
 RStudio projects. It also does not work yet for creating new packages
-itself (difficulties with git and Windows), hence the instructions above
-about creating a new project in RStudio. *Use at your own risk and/or
+itself (difficulties with git and Windows), hence the instruction about
+creating a new project in RStudio first. *Use at your own risk and/or
 read the source code.*
 
 ## Installation
@@ -41,19 +39,36 @@ remotes::install_github("leonawicz/pkgpeanuts")
 
 ## Package setup
 
-After creating a new package in RStudio, make sure the new, empty
-repository exists on GitHub (or BitBucket) as well. Make an initial
-commit, e.g. commit the `.Rproj` file, so that you can add and push to
-the remote repository. If this has not been done, `pkgpeanuts` will
-likely fail. Its use will become less problematic later, but currently
-there are issues yet to be worked out.
-
-Once this minimal setup is complete, call `pkgpeanuts::pour` from the
-package root directory with your desired arguments. I suggest not doing
-this, however. Instead, use the RStudio addin.
+After creating a new local package project with git in RStudio, call
+`pkgpeanuts::pour` from the package root directory with your desired
+arguments. I suggest not doing this, however. Instead, use the
+convenient RStudio addin.
 
 `pkgpeanuts` has many arguments. See the help documentation for details.
 And again, this is not intended for existing packages.
+
+### Special notes
+
+This is relevant particularly for Windows users. I have not tested on
+other systems.
+
+  - Must be in a new, local package project (using git) created in
+    RStudio
+  - Corresponding remote repository must not yet exist on GitHub (create
+    remote repo error)
+  - .Renviron must contain a valid GITHUB\_PAT entry
+  - For the time being, the addin (but not the `pour` function itself),
+    will do the
+following:
+
+<!-- end list -->
+
+``` r
+cred <- git2r::cred_ssh_key(publickey = "~/../.ssh/id_rsa.pub", privatekey = "~/../.ssh/id_rsa")
+usethis::use_github(credentials = cred)
+```
+
+This is the only way I currently have things functioning without errors.
 
 ## Motivation
 
