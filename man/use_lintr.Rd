@@ -18,6 +18,8 @@ side effect of adding \code{lintr} scaffolding to package.
 Add scaffolding for \code{lintr} package usage to R package.
 }
 \details{
+Note: This function is currently being reworked.
+
 If \code{lint_as_test = FALSE} (default), a \code{.lintr} file is created in the package root directory.
 Set to \code{TRUE} if you intend to use \code{lintr} with unit testing so that problems caught by the linter cause test failure.
 Do not set to \code{TRUE} simply because you are using \code{testthat}, but apart from \code{lintr}.

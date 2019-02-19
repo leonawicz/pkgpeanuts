@@ -89,37 +89,26 @@
     
     
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<div id="pkgpeanuts" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#pkgpeanuts" class="anchor"></a>pkgpeanuts <a href="man/figures/logo.png" _target="blank"><img src="reference/figures/logo.png" style="margin-left:10px;margin-bottom:5px;" width="120" align="right"></a>
+<section id="pkgpeanuts" class="level1"><div class="page-header"><h1>pkgpeanuts <img src="reference/figures/logo.png" style="margin-left:10px;margin-bottom:5px;" width="120" align="right">
 </h1></div>
 <p><strong>Author:</strong> <a href="https://leonawicz.github.io/blog/">Matthew Leonawicz</a> <a href="https://orcid.org/0000-0001-9452-2771" target="orcid.widget"> <image class="orcid" src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" height="16"></image></a> <a href="https://gitter.im/leonawicz/pkgpeanuts"><img src="https://img.shields.io/badge/GITTER-join%20chat-green.svg" alt="gitter"></a> <br><strong>License:</strong> <a href="https://opensource.org/licenses/MIT">MIT</a><br></p>
 <p><a href="https://travis-ci.org/leonawicz/pkgpeanuts"><img src="https://travis-ci.org/leonawicz/pkgpeanuts.svg?branch=master" alt="Travis-CI Build Status"></a> <a href="https://ci.appveyor.com/project/leonawicz/pkgpeanuts"><img src="https://ci.appveyor.com/api/projects/status/github/leonawicz/pkgpeanuts?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a> <a href="https://codecov.io/github/leonawicz/pkgpeanuts?branch=master"><img src="https://img.shields.io/codecov/c/github/leonawicz/pkgpeanuts/master.svg" alt="Coverage Status"></a></p>
 <p>The intent of <code>pkgpeanuts</code> is to automate building out robust R package scaffolding for a newly created package. Create a new R package project in RStudio. Make an initial commit and link up the local repository with your empty remote repository. Then let <code>pkgpeanuts</code> take care of the rest.</p>
 <p>This package is in early development. It is not intended for operating on existing, developed packages; only new packages as newly created RStudio projects. It also does not work yet for creating new packages itself (difficulties with git and Windows), hence the instructions above about creating a new project in RStudio. <em>Use at your own risk and/or read the source code.</em></p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<section id="installation" class="level2"><h2>Installation</h2>
 <p>You can install the development version of <code>pkgpeanuts</code> from GitHub with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("remotes")</span>
-remotes<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"leonawicz/pkgpeanuts"</span>)</code></pre></div>
-</div>
-<div id="package-setup" class="section level2">
-<h2 class="hasAnchor">
-<a href="#package-setup" class="anchor"></a>Package setup</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># install.packages("remotes")</span></a>
+<a class="sourceLine" id="cb1-2" title="2">remotes<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"leonawicz/pkgpeanuts"</span>)</a></code></pre></div>
+</section><section id="package-setup" class="level2"><h2>Package setup</h2>
 <p>After creating a new package in RStudio, make sure the new, empty repository exists on GitHub (or BitBucket) as well. Make an initial commit, e.g. commit the <code>.Rproj</code> file, so that you can add and push to the remote repository. If this has not been done, <code>pkgpeanuts</code> will likely fail. Its use will become less problematic later, but currently there are issues yet to be worked out.</p>
 <p>Once this minimal setup is complete, call <code><a href="reference/pour.html">pkgpeanuts::pour</a></code> from the package root directory with your desired arguments. I suggest not doing this, however. Instead, use the RStudio addin.</p>
 <p><code>pkgpeanuts</code> has many arguments. See the help documentation for details. And again, this is not intended for existing packages.</p>
-</div>
-<div id="motivation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#motivation" class="anchor"></a>Motivation</h2>
+</section><section id="motivation" class="level2"><h2>Motivation</h2>
 <p>The primary motivation is for the convenient RStudio addin.</p>
 <p>At each of my last two workplaces I have created workplace context-specific renditions of this package. This has enabled me to spin up new packages at work quickly and still have them conforming to professional standards and looking polished, despite limited time. By avoiding manually fussing with extraneous details that can be automated, I can focus on the fun part: building out the core package content. <code>pkgpeanuts</code> represents a generalization of my previous packages, stripping away code related to specific contexts. By design it must try to achieve less than my other packages did, but if generalized appropriately, could be useful to the R community.</p>
 <p>This is largely a wrapper around a plethora of <code>usethis</code> functions, plus additional functions from <code>pkgpeanuts</code>. <code>usethis</code> has also received a number of significant developments recently, which has led to some new simplifications of things I no longer need to do myself when making packages.</p>
+</section></section>
 </div>
-</div>
-  </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <div class="links">

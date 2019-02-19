@@ -15,7 +15,7 @@ NULL
 #' \dontrun{peanutsAddin()}
 peanutsAddin <- function(){
   doc_files <- c("README.Rmd" = "readme", "NEWS.md" = "news", "CODE_OF_CONDUCT.md" = "coc",
-                 "cran-comments.md" = "cran-comments", "clone-comments.md" = "clone-comments")
+                 "cran-comments.md" = "cran-comments")
   licenses <- c("MIT" = "mit", "GPL3" = "gpl3", "APL2" = "apl2", "CC0" = "cc0")
 
   ui <- miniPage(
@@ -33,7 +33,7 @@ peanutsAddin <- function(){
           ),
           textInput("description", "Description fields", width = "100%",
                     placeholder = "list(Language = \"es\")."),
-          checkboxInput("data_raw", "Use data-raw", TRUE, width = "100%")),
+          checkboxInput("data_raw", "Use data-raw", width = "100%")),
         bsCollapsePanel("Packages, imports and exports", style = "info",
           splitLayout(
             textInput("depends", "Depends", width = "100%", placeholder = "R (>= 3.5.0), sysfonts"),
@@ -43,27 +43,28 @@ peanutsAddin <- function(){
             textInput("suggests", "Suggests", width = "100%", placeholder = "knitr, rmarkdown"),
             textInput("remotes", "Remotes", width = "100%", placeholder = "ideally, nothing")
           ),
-          checkboxInput("tibble", "Import and re-export tibble", FALSE, width = "100%"),
-          checkboxInput("pipe", "Import and re-export pipe (%>%)", FALSE, width = "100%")),
+          checkboxInput("tibble", "Import and re-export tibble", width = "100%"),
+          checkboxInput("pipe", "Import and re-export pipe (%>%)", width = "100%")),
         bsCollapsePanel("Documentation", style = "info",
-          checkboxGroupInput("docs", "Files", doc_files, doc_files[-5], TRUE, width = "100%"),
-          checkboxInput("vignette", "Add package vignette template", TRUE, width = "100%"),
-          checkboxInput("hex", "Add hex logo customization script", TRUE, width = "100%"),
+          checkboxGroupInput("docs", "Files", doc_files, doc_files, TRUE, width = "100%"),
+          checkboxInput("vignette", "Add package vignette template", width = "100%"),
+          checkboxInput("hex", "Add hex logo customization script", width = "100%"),
           conditionalPanel("input.testthat == true",
-            checkboxInput("spellcheck", "Spell check as unit test", TRUE, width = "100%"))),
+            checkboxInput("spellcheck", "Spell check as unit test", width = "100%"))),
         bsCollapsePanel("Unit testing", style = "info",
-          checkboxInput("testthat", "testthat", TRUE, width = "100%")),
+          checkboxInput("testthat", "testthat", width = "100%")),
         bsCollapsePanel("Continuous integration", style = "info",
-          checkboxInput("travis", "Travis-CI", TRUE, width = "100%"),
-          checkboxInput("appveyor", "Appveyor", TRUE, width = "100%")),
+          checkboxInput("travis", "Travis-CI", width = "100%"),
+          checkboxInput("appveyor", "Appveyor", width = "100%")),
         bsCollapsePanel("Code coverage", style = "info",
-          checkboxInput("codecov", "codecov.io", TRUE, width = "100%")),
+          checkboxInput("codecov", "codecov.io", width = "100%")),
         bsCollapsePanel("Code linting", style = "info",
-          checkboxInput("lintr", "lintr", TRUE, width = "100%"),
+          p("Checkbox ignored. This function is currently being reworked."),
+          checkboxInput("lintr", "lintr", width = "100%"),
           conditionalPanel("input.testthat == true && input.lintr == true",
-            checkboxInput("lint_as_test", "Use lintr as testthat unit test", FALSE, width = "100%"))),
+            checkboxInput("lint_as_test", "Use lintr as testthat unit test", width = "100%"))),
         bsCollapsePanel("Reverse dependency checking", style = "info",
-          checkboxInput("revdep", "revdepcheck", TRUE, width = "100%"))
+          checkboxInput("revdep", "revdepcheck", width = "100%"))
       ),
       #checkboxInput("prevent", "Prevent use in existing, non-empty directory.", TRUE, width = "100%"), # nolint
       br()
@@ -74,8 +75,9 @@ peanutsAddin <- function(){
     name <- reactive(if(input$name == "") "Author Name" else input$name)
     desc <- reactive(if(input$description == "") NULL else input$description)
     lintr_val <- reactive({
-      if(!input$lintr) return("none")
-      if(is.null(input$lint_as_test) || !input$lint_as_test) "user" else "test"
+      "none"
+      # if(!input$lintr) return("none")
+      # if(is.null(input$lint_as_test) || !input$lint_as_test) "user" else "test"
     })
     readme <- reactive("readme" %in% input$docs)
     news <- reactive("news" %in% input$docs)
@@ -94,7 +96,7 @@ peanutsAddin <- function(){
       pour(".", input$account, name = name(), description = desc(), license = input$license, host = input$host,
            testthat = input$testthat, appveyor = input$appveyor, travis = input$travis, codecov = input$codecov,
            lintr = lintr_val(), revdep = input$revdep, data_raw = input$data_raw, hex = input$hex,
-           news = news(), code_of_conduct = coc(), cran_comments = crancom(), clone_comments = clonecom(),
+           news = news(), code_of_conduct = coc(), cran_comments = crancom(), #clone_comments = clonecom(),
            readme = readme(), vignette = input$vignette,
            depends = depends(), imports = imports(), suggests = suggests(), remotes = remotes(),
            spellcheck = input$spellcheck, tibble = input$tibble, pipe = input$pipe)

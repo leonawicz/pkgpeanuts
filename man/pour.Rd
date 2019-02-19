@@ -94,7 +94,7 @@ If using \code{lintr} with the new package,  set \code{lintr = "user"} for inter
 Set to \code{"test"} for setting up linting as a component of unit testing. The default is \code{lintr = "none"}.
 See \code{\link{use_lintr}} for important details regarding unit testing with \code{lintr} in an R package.
 
-If \code{hex = TRUE}, the default \code{logo.png} will not be created if the \code{magick} package and ImageMagick are not installed.
+If \code{hex = TRUE}, the default \code{logo.png} will not be created if the \code{magick} package is not installed.
 Instead, a message is printed notifying of this requirement. Being able to generate a default logo (that will surely be replaced later) is a very minor and unimportant feature.
 Therefore, \code{pkgpeanuts} does not have package dependencies or system requirements in this regard. This is optional.
 

@@ -30,6 +30,8 @@ repo <- function(){
 #'
 #' Add scaffolding for \code{lintr} package usage to R package.
 #'
+#' Note: This function is currently being reworked.
+#'
 #' If \code{lint_as_test = FALSE} (default), a \code{.lintr} file is created in the package root directory.
 #' Set to \code{TRUE} if you intend to use \code{lintr} with unit testing so that problems caught by the linter cause test failure.
 #' Do not set to \code{TRUE} simply because you are using \code{testthat}, but apart from \code{lintr}.
@@ -112,9 +114,9 @@ use_clone_comments <- function(lint_as_test = FALSE){
 #' A default logo is generated and placed at \code{man/figures/logo.png}. However, it will require user customization after it is generated.
 #' Adapt the provided script and rerun to make a new logo.
 #'
-#' The default \code{logo.png} will not be created if the \code{magick} package and ImageMagick are not installed.
-#' Instead, a message is printed notifying of this requirement. Being able to generate a default logo (that will surely be replaced later) is a very minor and unimportant feature.
-#' Therefore, \code{pkgpeanuts} does not have package dependencies or system requirements in this regard. This is optional.
+#' The default \code{logo.png} will not be created if the \code{magick} package is not installed.
+#' Instead, a message is printed notifying of this requirement. Being able to generate a default logo (that will surely be replaced later) is a minor, optional feature.
+#' Therefore, \code{pkgpeanuts} does not have package dependencies in this regard.
 #'
 #' @param account user account.
 #' @param host \code{"github"} or \code{"bitbucket"}.
@@ -218,7 +220,7 @@ update_readme_rmd <- function(repo, host = "github", public = TRUE){
 #' Set to \code{"test"} for setting up linting as a component of unit testing. The default is \code{lintr = "none"}.
 #' See \code{\link{use_lintr}} for important details regarding unit testing with \code{lintr} in an R package.
 #'
-#' If \code{hex = TRUE}, the default \code{logo.png} will not be created if the \code{magick} package and ImageMagick are not installed.
+#' If \code{hex = TRUE}, the default \code{logo.png} will not be created if the \code{magick} package is not installed.
 #' Instead, a message is printed notifying of this requirement. Being able to generate a default logo (that will surely be replaced later) is a very minor and unimportant feature.
 #' Therefore, \code{pkgpeanuts} does not have package dependencies or system requirements in this regard. This is optional.
 #'
