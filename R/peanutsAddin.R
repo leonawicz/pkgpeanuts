@@ -34,7 +34,7 @@ peanutsAddin <- function(){
             textInput("name", "Author name", width = "100%", placeholder = "First Last")
           ),
           textInput("description", "Description fields", width = "100%",
-                    placeholder = "list(Language = \"es\")")),
+                    placeholder = "Language = \"es\", ...")),
         bsCollapsePanel("Packages, import/export and data", style = "info",
           splitLayout(
             textInput("depends", "Depends", width = "100%", placeholder = "R (>= 3.5.0), sysfonts"),
@@ -75,8 +75,15 @@ peanutsAddin <- function(){
   )
 
   server <- function(input, output){
+
+    parse_fields <- function(x){
+      x <- trimws(strsplit(x, ",")[[1]])
+      x <- lapply(x, function(x) gsub("\"|'", "", trimws(strsplit(x, "=")[[1]])))
+      stats::setNames(lapply(x, "[", 2), sapply(x, "[", 1))
+    }
+
     name <- reactive(if(input$name == "") "Author Name" else input$name)
-    desc <- reactive(if(input$description == "") NULL else input$description)
+    desc <- reactive(if(input$description == "") NULL else parse_fields(input$description))
     lintr_val <- reactive({
       "none"
       # if(!input$lintr) return("none")
@@ -96,6 +103,14 @@ peanutsAddin <- function(){
       #safe <- !file.exists(input$path) || !length(list.files(input$path))
       #if(safe || !input$prevent){
       #print(input$path)
+
+      # This part tentatively required to get this working on Windows
+      # 1. Must be in a new, local package project (using git) created in RStudio
+      # 2. Corresponding remote repository must not yet exist on GitHub (create remote repo error)
+      # 3. .Renviron must contain a valid GITHUB_PAT entry
+      cred <- git2r::cred_ssh_key(publickey = "~/../.ssh/id_rsa.pub", privatekey = "~/../.ssh/id_rsa")
+      usethis::use_github(credentials = cred)
+
       pour(".", input$account, name = name(), description = desc(), license = input$license, host = input$host,
            testthat = input$testthat, pkgdown = input$pkgdown,
            appveyor = input$appveyor, travis = input$travis, codecov = input$codecov,
@@ -104,6 +119,10 @@ peanutsAddin <- function(){
            readme = readme(), vignette = input$vignette,
            depends = depends(), imports = imports(), suggests = suggests(), remotes = remotes(),
            spellcheck = input$spellcheck, tibble = input$tibble, pipe = input$pipe)
+
+      # The app window must first be closed by the user in order to interact with the console prompts.
+      # However, without this line, the app will still be running windowless after all prompts complete.
+      stopApp(NULL)
       #}
     })
 
@@ -111,6 +130,7 @@ peanutsAddin <- function(){
 
   viewer <- dialogViewer("Add package scaffolding to a new R package", 600, 600)
   runGadget(ui, server, viewer = viewer)
+
 }
 
 # nolint end
