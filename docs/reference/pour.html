@@ -139,12 +139,13 @@
 
     <pre class="usage"><span class='fu'>pour</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='no'>account</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>description</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>license</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"mit"</span>, <span class='st'>"gpl3"</span>, <span class='st'>"apl2"</span>, <span class='st'>"cc0"</span>), <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"github"</span>,
-  <span class='kw'>public</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>testthat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>appveyor</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>travis</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>codecov</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lintr</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"user"</span>, <span class='st'>"test"</span>), <span class='kw'>revdep</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>data_raw</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>hex</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>news</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>code_of_conduct</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>cran_comments</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>clone_comments</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>readme</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>vignette</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>depends</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>imports</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>suggests</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>remotes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>spellcheck</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>tibble</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>pipe</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>public</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>testthat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>pkgdown</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>appveyor</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>travis</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>codecov</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lintr</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"user"</span>, <span class='st'>"test"</span>),
+  <span class='kw'>revdep</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>data_raw</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>hex</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>news</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>code_of_conduct</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>cran_comments</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>clone_comments</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>readme</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>vignette</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>depends</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>imports</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>suggests</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>remotes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>spellcheck</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>tibble</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>pipe</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>github_args</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -182,6 +183,10 @@ Consider setting default fields in <code>options</code>, or even <code>.Rprofile
     <tr>
       <th>testthat</th>
       <td><p>logical, use <code>testthat</code>.</p></td>
+    </tr>
+    <tr>
+      <th>pkgdown</th>
+      <td><p>logical, use <code>pkgdown</code>.</p></td>
     </tr>
     <tr>
       <th>appveyor</th>
@@ -288,9 +293,9 @@ See <code><a href='use_lintr.html'>use_lintr</a></code> for important details re
 <p>If <code>hex = TRUE</code>, the default <code>logo.png</code> will not be created if the <code>magick</code> package is not installed.
 Instead, a message is printed notifying of this requirement. Being able to generate a default logo (that will surely be replaced later) is a very minor and unimportant feature.
 Therefore, <code>pkgpeanuts</code> does not have package dependencies or system requirements in this regard. This is optional.</p>
-<p><code>pkgdown</code> for R package website building is also initialized, using a <code>pkgdown</code> directory in the package root
-directory containing template <code>_pkgdown.yml</code> and <code>extra.css</code> files. Note that <code>pkgdown</code> is always included by <code>pour</code>.
-The <code>docs</code> directory is used for website files and should be specified likewise in the remote repository settings.</p>
+<p>If <code>pkgdown = TRUE</code>, a <code>pkgdown</code> site for R package documentation is also initialized, using a <code>pkgdown</code> directory in the package root
+directory containing template <code>_pkgdown.yml</code> and <code>extra.css</code> files.
+The <code>docs</code> directory is initially set for package website files and should be specified likewise in the remote repository settings for hosting.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

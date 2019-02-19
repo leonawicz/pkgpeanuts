@@ -192,9 +192,9 @@ update_readme_rmd <- function(repo, host = "github", public = TRUE){
     "``` r\n",
     "# install.packages(\"remotes\")\n",
     "remotes::install_", host, "(\"", repo, "\"", auth_args, ")\n",
-    "```\n")
+    "```\n\n## Example\n")
   x <- readLines("README.Rmd")
-  idx <- grep("^## Installation|::install_github\\(\"", x)
+  idx <- grep("^## Installation|## Example", x)
   x <- paste0(c(x[1:(idx[1] - 1)], txt, x[(idx[2] + 2):length(x)]), collapse = "\n")
   sink("README.Rmd")
   cat(paste0(x, "\n"))
@@ -224,9 +224,9 @@ update_readme_rmd <- function(repo, host = "github", public = TRUE){
 #' Instead, a message is printed notifying of this requirement. Being able to generate a default logo (that will surely be replaced later) is a very minor and unimportant feature.
 #' Therefore, \code{pkgpeanuts} does not have package dependencies or system requirements in this regard. This is optional.
 #'
-#' \code{pkgdown} for R package website building is also initialized, using a \code{pkgdown} directory in the package root
-#' directory containing template \code{_pkgdown.yml} and \code{extra.css} files. Note that \code{pkgdown} is always included by \code{pour}.
-#' The \code{docs} directory is used for website files and should be specified likewise in the remote repository settings.
+#' If \code{pkgdown = TRUE}, a \code{pkgdown} site for R package documentation is also initialized, using a \code{pkgdown} directory in the package root
+#' directory containing template \code{_pkgdown.yml} and \code{extra.css} files.
+#' The \code{docs} directory is initially set for package website files and should be specified likewise in the remote repository settings for hosting.
 #'
 #' @param path character, package directory. Package name used by \code{pour} is taken from the path's \code{basename}.
 #' @param account character, user account.
@@ -237,6 +237,7 @@ update_readme_rmd <- function(repo, host = "github", public = TRUE){
 #' @param host \code{"github"} (default) or \code{"bitbucket"}.
 #' @param public logical, public remote repository.
 #' @param testthat logical, use \code{testthat}.
+#' @param pkgdown logical, use \code{pkgdown}.
 #' @param appveyor logical, use Appveyor. Applicable if \code{host = "github"}.
 #' @param travis logical, use Travis-CI. Applicable if \code{host = "github"}.
 #' @param codecov logical, use \code{covr} package and integrate with \code{codecov.io}. Applicable if \code{host = "github"}.
@@ -269,7 +270,7 @@ update_readme_rmd <- function(repo, host = "github", public = TRUE){
 pour <- function(path = ".", account, name = NULL, description = NULL, # nolint start
                  license = c("mit", "gpl3", "apl2", "cc0"),
                  host = "github", public = TRUE,
-                 testthat = TRUE, appveyor = TRUE, travis = TRUE, codecov = TRUE,
+                 testthat = TRUE, pkgdown = TRUE, appveyor = TRUE, travis = TRUE, codecov = TRUE,
                  lintr = c("none", "user", "test"), revdep = TRUE, data_raw = TRUE, hex = TRUE,
                  news = TRUE, code_of_conduct = TRUE, cran_comments = TRUE, clone_comments = TRUE,
                  readme = TRUE, vignette = TRUE,
@@ -334,30 +335,32 @@ pour <- function(path = ".", account, name = NULL, description = NULL, # nolint 
     use_lintr()
   }
   if(spellcheck) usethis::use_spell_check()
-  message("Building favicons and initializing pkgdown...")
-  if(file.exists("man/figures/logo.png")) pkgdown::build_favicon()
-  pkgdown::init_site()
-  pdfiles <- list.files(file.path(system.file(package = "pkgpeanuts"), "resources/pkgdown"),
-                        full.names = TRUE)
-  dir.create("pkgdown", showWarnings = FALSE)
-  file.copy(pdfiles[2], file.path("pkgdown", basename(pdfiles[2])), overwrite = TRUE)
-  usethis::use_build_ignore(c("docs", "pkgdown"))
-  file <- "pkgdown/_pkgdown.yml"
-  x <- paste(readLines(pdfiles[1]), collapse = "\n")
-  if(host == "github"){
-    r <- repo()
-  } else {
-    r <- list(account = account, repo = basename(getwd()))
+  if(pkgdown){
+    message("Building favicons and initializing pkgdown...")
+    if(file.exists("man/figures/logo.png")) pkgdown::build_favicon()
+    pkgdown::init_site()
+    pdfiles <- list.files(file.path(system.file(package = "pkgpeanuts"), "resources/pkgdown"),
+                          full.names = TRUE)
+    dir.create("pkgdown", showWarnings = FALSE)
+    file.copy(pdfiles[2], file.path("pkgdown", basename(pdfiles[2])), overwrite = TRUE)
+    usethis::use_build_ignore(c("docs", "pkgdown"))
+    file <- "pkgdown/_pkgdown.yml"
+    x <- paste(readLines(pdfiles[1]), collapse = "\n")
+    if(host == "github"){
+      r <- repo()
+    } else {
+      r <- list(account = account, repo = basename(getwd()))
+    }
+    x <- gsub("_ACCOUNT_", r$account, x)
+    x <- gsub("_PACKAGE_", r$repo, x)
+    if(is.null(name)) name <- options()$usethis.full_name
+    x <- gsub("_GIVEN_FAMILY_", name, x)
+    x <- gsub("_HOST_", host, x)
+    x <- gsub("_HOSTURL_", switch(host, github = "github.com", bitbucket = "bitbucket.org"), x)
+    sink(file)
+    cat(paste0(x, "\n"))
+    sink()
   }
-  x <- gsub("_ACCOUNT_", r$account, x)
-  x <- gsub("_PACKAGE_", r$repo, x)
-  if(is.null(name)) name <- options()$usethis.full_name
-  x <- gsub("_GIVEN_FAMILY_", name, x)
-  x <- gsub("_HOST_", host, x)
-  x <- gsub("_HOSTURL_", switch(host, github = "github.com", bitbucket = "bitbucket.org"), x)
-  sink(file)
-  cat(paste0(x, "\n"))
-  sink()
 
   if(host == "github"){
     if(appveyor) usethis::use_appveyor()

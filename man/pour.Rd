@@ -6,12 +6,13 @@
 \usage{
 pour(path = ".", account, name = NULL, description = NULL,
   license = c("mit", "gpl3", "apl2", "cc0"), host = "github",
-  public = TRUE, testthat = TRUE, appveyor = TRUE, travis = TRUE,
-  codecov = TRUE, lintr = c("none", "user", "test"), revdep = TRUE,
-  data_raw = TRUE, hex = TRUE, news = TRUE, code_of_conduct = TRUE,
-  cran_comments = TRUE, clone_comments = TRUE, readme = TRUE,
-  vignette = TRUE, depends = NULL, imports = NULL, suggests = NULL,
-  remotes = NULL, spellcheck = TRUE, tibble = FALSE, pipe = FALSE,
+  public = TRUE, testthat = TRUE, pkgdown = TRUE, appveyor = TRUE,
+  travis = TRUE, codecov = TRUE, lintr = c("none", "user", "test"),
+  revdep = TRUE, data_raw = TRUE, hex = TRUE, news = TRUE,
+  code_of_conduct = TRUE, cran_comments = TRUE,
+  clone_comments = TRUE, readme = TRUE, vignette = TRUE,
+  depends = NULL, imports = NULL, suggests = NULL, remotes = NULL,
+  spellcheck = TRUE, tibble = FALSE, pipe = FALSE,
   github_args = NULL)
 }
 \arguments{
@@ -31,6 +32,8 @@ Consider setting default fields in \code{options}, or even \code{.Rprofile} if y
 \item{public}{logical, public remote repository.}
 
 \item{testthat}{logical, use \code{testthat}.}
+
+\item{pkgdown}{logical, use \code{pkgdown}.}
 
 \item{appveyor}{logical, use Appveyor. Applicable if \code{host = "github"}.}
 
@@ -98,9 +101,9 @@ If \code{hex = TRUE}, the default \code{logo.png} will not be created if the \co
 Instead, a message is printed notifying of this requirement. Being able to generate a default logo (that will surely be replaced later) is a very minor and unimportant feature.
 Therefore, \code{pkgpeanuts} does not have package dependencies or system requirements in this regard. This is optional.
 
-\code{pkgdown} for R package website building is also initialized, using a \code{pkgdown} directory in the package root
-directory containing template \code{_pkgdown.yml} and \code{extra.css} files. Note that \code{pkgdown} is always included by \code{pour}.
-The \code{docs} directory is used for website files and should be specified likewise in the remote repository settings.
+If \code{pkgdown = TRUE}, a \code{pkgdown} site for R package documentation is also initialized, using a \code{pkgdown} directory in the package root
+directory containing template \code{_pkgdown.yml} and \code{extra.css} files.
+The \code{docs} directory is initially set for package website files and should be specified likewise in the remote repository settings for hosting.
 }
 \examples{
 # Create new R package project with RStudio. Run command inside package root directory, e.g.:

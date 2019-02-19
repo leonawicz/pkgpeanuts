@@ -49,8 +49,9 @@ peanutsAddin <- function(){
           checkboxInput("data_raw", "Use data-raw", width = "100%")),
         bsCollapsePanel("Documentation", style = "info",
           checkboxGroupInput("docs", "Files", doc_files, doc_files, TRUE, width = "100%"),
+          checkboxInput("pkgdown", "Initialize pkgdown website", TRUE, width = "100%"),
           checkboxInput("vignette", "Add package vignette template", width = "100%"),
-          checkboxInput("hex", "Add hex logo customization script", width = "100%"),
+          checkboxInput("hex", "Add hex.R template to data-raw for logo customization", width = "100%"),
           conditionalPanel("input.testthat == true",
             checkboxInput("spellcheck", "Spell check as unit test", width = "100%"))),
         bsCollapsePanel("Unit testing", style = "info",
@@ -96,7 +97,8 @@ peanutsAddin <- function(){
       #if(safe || !input$prevent){
       #print(input$path)
       pour(".", input$account, name = name(), description = desc(), license = input$license, host = input$host,
-           testthat = input$testthat, appveyor = input$appveyor, travis = input$travis, codecov = input$codecov,
+           testthat = input$testthat, pkgdown = input$pkgdown,
+           appveyor = input$appveyor, travis = input$travis, codecov = input$codecov,
            lintr = lintr_val(), revdep = input$revdep, data_raw = input$data_raw, hex = input$hex,
            news = news(), code_of_conduct = coc(), cran_comments = crancom(), #clone_comments = clonecom(),
            readme = readme(), vignette = input$vignette,
