@@ -12,7 +12,7 @@ reference:
 - title: Package setup
   contents:
   - pour
-  - pourApp
+  - peanutsAddin
   - use_lintr
   - use_hex
   - use_clone_comments

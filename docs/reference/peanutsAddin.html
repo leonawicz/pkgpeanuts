@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add <code>hex.R</code> to package — use_hex • pkgpeanuts</title>
+<title>Pour packing peanuts from Shiny gadget addin — peanutsAddin • pkgpeanuts</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -39,9 +39,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Add <code>hex.R</code> to package — use_hex" />
+<meta property="og:title" content="Pour packing peanuts from Shiny gadget addin — peanutsAddin" />
 
-<meta property="og:description" content="Add hex.R to package data-raw directory. Create a default logo." />
+<meta property="og:description" content="Launch a Shiny gadget to use pour in GUI form. See pour for details." />
 
 <meta property="og:image" content="https://leonawicz.github.io/pkgpeanuts/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -126,60 +126,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add <code>hex.R</code> to package</h1>
+    <h1>Pour packing peanuts from Shiny gadget addin</h1>
     
-    <div class="hidden name"><code>use_hex.Rd</code></div>
+    <div class="hidden name"><code>peanutsAddin.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Add <code>hex.R</code> to package <code>data-raw</code> directory. Create a default logo.</p>
+    <p>Launch a Shiny gadget to use <code><a href='pour.html'>pour</a></code> in GUI form. See <code>pour</code> for details.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>use_hex</span>(<span class='no'>account</span>, <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"github"</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>account</th>
-      <td><p>user account.</p></td>
-    </tr>
-    <tr>
-      <th>host</th>
-      <td><p><code>"github"</code> or <code>"bitbucket"</code>.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>side effect of creating file.</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>This script provides a template for package hex sticker icons, a large icon in <code>data-raw</code> and a small icon in <code>inst</code>.
-A default logo is generated and placed at <code>man/figures/logo.png</code>. However, it will require user customization after it is generated.
-Adapt the provided script and rerun to make a new logo.</p>
-<p>The default <code>logo.png</code> will not be created if the <code>magick</code> package is not installed.
-Instead, a message is printed notifying of this requirement. Being able to generate a default logo (that will surely be replaced later) is a minor, optional feature.
-Therefore, <code>pkgpeanuts</code> does not have package dependencies in this regard.</p>
-    
+    <pre class="usage"><span class='fu'>peanutsAddin</span>()</pre>
+        
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'>use_hex</span>(<span class='kw'>account</span> <span class='kw'>=</span> <span class='st'>"username"</span>, <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"github"</span>)
+<span class='fu'>peanutsAddin</span>()
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 

@@ -1,0 +1,4 @@
+Name: Create scaffolding for new package
+Description: Prepare the scaffolding for a newly created RStudio project R package.
+Binding: peanutsAddin
+Interactive: true
